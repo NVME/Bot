@@ -62,7 +62,7 @@ namespace Bot.Master
             {
                 Id = 10001,
                 ParentId = 10001,
-                TypeId = 1,// Language node
+                TypeId = (int)NodeType.LanguageNode,// Language node
                 TypeName = "LanguageNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -133,7 +133,7 @@ namespace Bot.Master
             {
                 Id = 11001,
                 ParentId = 11001, // top node , it is its own parent
-                TypeId = 2,// Menu node
+                TypeId = (int)NodeType.MenuNode,// Menu node
                 TypeName = "MenuNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -174,7 +174,7 @@ namespace Bot.Master
             {
                 Id = 11101,
                 ParentId = 11001,
-                TypeId = 3,// Informational node
+                TypeId = 5,// Informational node
                 TypeName = "InformationalNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -192,12 +192,34 @@ namespace Bot.Master
                                Text ="보안 요구 사항으로 인해 채팅을 통한 비밀번호 재설정이 허용되지 않습니다. JCI 글로벌 ID 비밀번호 재설정의 경우 다음 링크에서 제공되는 셀프 서비스 안내서를 먼저 확인하십시오. 비밀번호 재설정 도구 안내, 추가 도움이 필요하면 서비스에 문의하십시오. 전화를 통한 책상."}
                     }
                 },
-
                 HeaderTextFormat = "",
                 Keywords = new List<GlobalPhrase>{
-                        new GlobalPhrase { }
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                new LocalPhrase { LanguageCode="en-us", Text="p" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="pass" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="P" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="Pass" },
+                                  new LocalPhrase { LanguageCode="en-us", Text="RESET" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="reset" }
+                            }
+                        },
+                         new GlobalPhrase {
+                             Id="2",
+                              Phrases=
+                            {
+                                new LocalPhrase { LanguageCode="mandarin", Text="p" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="pass" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="密码重置" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="密码" },
+                                  new LocalPhrase { LanguageCode="mandarin", Text="RESET" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="重置" }
+                            }
+                        }
                      },
-                //"p", "pass", "P", "PASS", "RESET", "reset"
+
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -211,30 +233,30 @@ namespace Bot.Master
                 },
                 OptionTextFormat = "",
                 DisclaimerText = null,
-            DisclaimerTextFormat = "",
-            FooterText = null,
-            FooterTextFormat = "",
-            LanguageOptions = null,
-            LanguageAltText = null,
-            Queue = null,
-            QueueName = null,
-            UseEnglishLanguageName = false,
-            DisableGoBackOption = true,
-            DisplayChosenText = true,
-            DisplayHoursOfOperation = false,
-            DisplaySelectionText = false,
-            ShowConfirmation = false,
-            HideMenu = false,
-            HideMenuNumbers = false,
-            AdditionalOptions = "",
-            CweCommand = ""
-        };
+                DisclaimerTextFormat = "",
+                FooterText = null,
+                FooterTextFormat = "",
+                LanguageOptions = null,
+                LanguageAltText = null,
+                Queue = null,
+                QueueName = null,
+                UseEnglishLanguageName = false,
+                DisableGoBackOption = true,
+                DisplayChosenText = true,
+                DisplayHoursOfOperation = false,
+                DisplaySelectionText = false,
+                ShowConfirmation = false,
+                HideMenu = false,
+                HideMenuNumbers = false,
+                AdditionalOptions = "",
+                CweCommand = ""
+            };
 
             var software = new NodeDto
             {
                 Id = 11102,
                 ParentId = 11001,
-                TypeId = 3,// Informational node
+                TypeId = (int)NodeType.InformationalNode,// Informational node
                 TypeName = "InformationalNode",
                 HeaderText =
                 new GlobalPhrase
@@ -255,11 +277,31 @@ namespace Bot.Master
                 },
 
                 HeaderTextFormat = "",
-                // Keywords = new List<string>() { "s", "soft", "S", "SOFT", "INSTALL", "install" },
                 Keywords = new List<GlobalPhrase>{
-                        new GlobalPhrase { }
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                new LocalPhrase { LanguageCode="en-us", Text="s" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="soft" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="SOFT" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="INSTALL" },
+                                  new LocalPhrase { LanguageCode="en-us", Text="install" }
+                            }
+                        },
+                         new GlobalPhrase {
+                             Id="2",
+                              Phrases=
+                            {
+                                new LocalPhrase { LanguageCode="mandarin", Text="install" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="soft" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="软件安装" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="软件" },
+                                  new LocalPhrase { LanguageCode="mandarin", Text="s" },
+                                 new LocalPhrase { LanguageCode="mandarin", Text="安装" }
+                            }
+                        }
                      },
-                //"p", "pass", "P", "PASS", "RESET", "reset"
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -298,7 +340,7 @@ namespace Bot.Master
             {
                 Id = 11103,
                 ParentId = 11001,
-                TypeId = 3,// Informational node
+                TypeId = (int)NodeType.InformationalNode,// Informational node
                 TypeName = "InformationalNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -318,7 +360,19 @@ namespace Bot.Master
                 },
 
                 HeaderTextFormat = "",
-                //Keywords = new List<string>() { "check", "status", "StATUS", "CHECK", "C", "c" },
+                Keywords = new List<GlobalPhrase>{
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                new LocalPhrase { LanguageCode="en-us", Text="check" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="status" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="STATUS" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="CHECK" },
+                                  new LocalPhrase { LanguageCode="en-us", Text="C" }
+                            }
+                        }
+                     },
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -356,8 +410,8 @@ namespace Bot.Master
             {
                 Id = 11104,
                 ParentId = 11001,
-                TypeId = 3,// Informational node
-                TypeName = "InformationalNode",
+                TypeId = (int)NodeType.MenuNode,// Menu node
+                TypeName = "MenuNode",
                 HeaderText = new GlobalPhrase
                 {
                     Id = "",
@@ -376,7 +430,18 @@ namespace Bot.Master
                 },
 
                 HeaderTextFormat = "",
-                //Keywords = new List<string>() { "o", "outlook", "O", "OUTLOOK" },
+                Keywords = new List<GlobalPhrase>{
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                 new LocalPhrase { LanguageCode="en-us", Text="o" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="outlook" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="O" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="OUTLOOK" }
+                            }
+                        }
+                     },
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -414,7 +479,7 @@ namespace Bot.Master
             {
                 Id = 11105,
                 ParentId = 11001,
-                TypeId = 3,// Informational node
+                TypeId = (int)NodeType.InformationalNode,// Informational node
                 TypeName = "InformationalNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -433,7 +498,16 @@ namespace Bot.Master
                     }
                 },
                 HeaderTextFormat = "",
-                // Keywords = new List<string>() { "sap", "SAP" },               
+                Keywords = new List<GlobalPhrase>{
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                 new LocalPhrase { LanguageCode="en-us", Text="SAP" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="sap" }
+                            }
+                        }
+                     },
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -470,7 +544,7 @@ namespace Bot.Master
             {
                 Id = 11106,
                 ParentId = 11001,
-                TypeId = 3,// Informational node
+                TypeId = (int)NodeType.InformationalNode,// Informational node
                 TypeName = "InformationalNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -490,7 +564,16 @@ namespace Bot.Master
                 },
 
                 HeaderTextFormat = "",
-                // Keywords = new List<string>() { "ssna", "SSNA" },
+                Keywords = new List<GlobalPhrase>{
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                 new LocalPhrase { LanguageCode="en-us", Text="ssna" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="SSNA" }
+                            }
+                        }
+                     },
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -527,8 +610,8 @@ namespace Bot.Master
             {
                 Id = 11107,
                 ParentId = 11001,
-                TypeId = 3,// Informational node
-                TypeName = "InformationalNode",
+                TypeId = (int)NodeType.MenuNode,// Menu node
+                TypeName = "MenuNode",
                 HeaderText = new GlobalPhrase
                 {
                     Id = "",
@@ -546,7 +629,16 @@ namespace Bot.Master
                     }
                 },
                 HeaderTextFormat = "",
-                //Keywords = new List<string>() { "other", "OTHER" },
+                Keywords = new List<GlobalPhrase>{
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                 new LocalPhrase { LanguageCode="en-us", Text="other" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="OTHER" }
+                            }
+                        }
+                     },
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -584,7 +676,7 @@ namespace Bot.Master
             {
                 Id = 11111,
                 ParentId = 11107,
-                TypeId = 5,// Hand off node
+                TypeId = (int)NodeType.HandoffNode,// Hand off node
                 TypeName = "HandOffNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -603,7 +695,16 @@ namespace Bot.Master
                 DisclaimerTextFormat = "",
                 FooterText = null,
                 FooterTextFormat = "",
-                Keywords = null,
+                Keywords = new List<GlobalPhrase>{
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                 new LocalPhrase { LanguageCode="en-us", Text="AGENT" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="agent" }
+                            }
+                        }
+                     },
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
@@ -665,9 +766,9 @@ namespace Bot.Master
 
             var handoffoutlook = new NodeDto
             {
-                Id = 11111,
+                Id = 11112,
                 ParentId = 11104,
-                TypeId = 5,// Hand off node
+                TypeId = (int)NodeType.HandoffNode,// Hand off node
                 TypeName = "HandOffNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -685,7 +786,16 @@ namespace Bot.Master
                 DisclaimerTextFormat = "",
                 FooterText = null,
                 FooterTextFormat = "",
-                Keywords = null,
+                Keywords = new List<GlobalPhrase>{
+                        new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                 new LocalPhrase { LanguageCode="en-us", Text="AGENT" },
+                                 new LocalPhrase { LanguageCode="en-us", Text="agent" }
+                            }
+                        }
+                     },
                 OptionText = new GlobalPhrase
                 {
                     Id = "",
