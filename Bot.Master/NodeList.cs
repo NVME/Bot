@@ -584,7 +584,7 @@ namespace Bot.Master
             {
                 Id = 11111,
                 ParentId = 11107,
-                TypeId = 4,// Hand off node
+                TypeId = 5,// Hand off node
                 TypeName = "HandOffNode",
                 HeaderText = new GlobalPhrase
                 {
@@ -667,7 +667,7 @@ namespace Bot.Master
             {
                 Id = 11111,
                 ParentId = 11104,
-                TypeId = 4,// Hand off node
+                TypeId = 5,// Hand off node
                 TypeName = "HandOffNode",
                 HeaderText = new GlobalPhrase
                 {

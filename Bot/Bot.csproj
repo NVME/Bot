@@ -44,6 +44,12 @@
     <Compile Include="EnhancedChat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bot.Core\Bot.COMM.csproj">
+      <Project>{dc8a3893-c4e5-4872-a8d3-41c76de55f57}</Project>
+      <Name>Bot.COMM</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

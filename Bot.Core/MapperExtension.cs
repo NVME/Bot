@@ -85,15 +85,20 @@ namespace Bot.COMM
             nodes.AddRange(menuNodes);
             nodes.AddRange(informationalNodes);
             nodes.AddRange(handoffNodes);
-
+            var treenodes = new List<Node>();
             foreach (var node in nodes)
             {
-                node.Match()
-
+               node.Parent = nodes.Find(n => n.Id == node.ParentId);
+               if(node is MenuNode)
+                {
+                    var menuNode = node as MenuNode;
+                    menuNode.Nodes.AddRange(nodes.Where(n => n.ParentId == menuNode.Id && n.Id!=n.ParentId));
+                    treenodes.Add(menuNode);
+                }
+                if (!treenodes.Any(tn => tn.Id == node.Id)) treenodes.Add(node);
             }
-
-
-            return nodes;
+            nodes = null;
+            return treenodes;
         }
 
         public static Queue ToQueue(this QueueDto dto)

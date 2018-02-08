@@ -14,6 +14,10 @@ namespace Bot.COMM
         public string Id { get; set; }
         [DataMember]
         public List<LocalPhrase> Phrases { get; set; }
+        public GlobalPhrase()
+        {
+            Phrases = new List<LocalPhrase>();
+        }
     }
     [DataContract]
     public class LocalPhrase
