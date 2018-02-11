@@ -7,8 +7,8 @@
     <ProjectGuid>{DC8A3893-C4E5-4872-A8D3-41C76DE55F57}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bot.Core</RootNamespace>
-    <AssemblyName>Bot.Core</AssemblyName>
+    <RootNamespace>Bot.COMM</RootNamespace>
+    <AssemblyName>Bot.COMM</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
