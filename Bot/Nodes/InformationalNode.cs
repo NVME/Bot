@@ -15,5 +15,15 @@ namespace Bot.Core
         public bool DisplayConnectionText { get; set; }
         public bool DisableGoBackOption { get; set; }
         public InformationalNode() : base() { }
+
+        public override string Display()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override KeyValuePair<Node, string> Handle(string userInput)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

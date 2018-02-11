@@ -16,5 +16,15 @@ namespace Bot.Core
         public Queue Queue { get; set; }
         public bool ShowConfirmation { get; set; }
         public bool DisplayHoursOfOperation { get; set; }
+
+        public override string Display()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override KeyValuePair<Node, string> Handle(string userInput)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

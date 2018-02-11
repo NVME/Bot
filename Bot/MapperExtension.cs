@@ -13,6 +13,11 @@ namespace Bot.Core
             return new InteractiveResponse { Id = dto.Id, Name = dto.Name };
         }
 
+        /// <summary>
+        /// Used as a deep copy of node list, so each conversation will have independent node list.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static List<Node> ToNode(this List<NodeDto> list)
         {
             var nodes = new List<Node>();

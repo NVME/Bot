@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bot.Core
 {
-    public class MenuNode : Node
+    public class MenuNode : Node, INode
     {
         public MenuNode() : base()
         {
@@ -23,5 +23,18 @@ namespace Bot.Core
         public bool DisableGoBackOption { get; set; }
         public bool HideMenu { get; set; }
         public bool HideMenuNumbers { get; set; }
+
+        
+        public override string Display()
+        {
+            throw new NotImplementedException();
+        }
+       
+        public override KeyValuePair<Node, string> Handle(string userInput)
+        {
+            throw   new NotImplementedException();
+        }
     }
+
+    
 }

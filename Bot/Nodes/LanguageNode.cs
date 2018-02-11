@@ -20,5 +20,15 @@ namespace Bot.Core
             LanguageOptions = new List<LanguageOption>();
             LanguagesAltText = new List<string>();
         }
+
+        public override string Display()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override KeyValuePair<Node, string> Handle(string userInput)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

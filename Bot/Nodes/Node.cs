@@ -20,6 +20,9 @@ namespace Bot.Core
         {
             Keywords = new List<GlobalPhrase>();
         }
+
+        public abstract string Display();
+        public abstract KeyValuePair<Node, string> Handle(string userInput);
     }
 
     #region Parts

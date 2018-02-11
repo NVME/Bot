@@ -11,5 +11,15 @@ namespace Bot.Core
     {
         public LoopbackNode() : base() { }
         public OptionDisplay Option { get; set; }
+
+        public override string Display()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override KeyValuePair<Node, string> Handle(string userInput)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
