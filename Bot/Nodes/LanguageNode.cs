@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bot.Core
 {
-    public class LanguageNode : Node
+    public class LanguageNode : Node, INode
     {
         public Header Header { get; set; }
         public Disclaimer Disclaimer { get; set; }

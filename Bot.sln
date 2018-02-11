@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.COMM", "Bot.Core\Bot.COMM.csproj", "{DC8A3893-C4E5-4872-A8D3-41C76DE55F57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.COMM", "Bot.COMM\Bot.COMM.csproj", "{DC8A3893-C4E5-4872-A8D3-41C76DE55F57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot", "Bot\Bot.csproj", "{08B07BF8-355B-4F35-B87A-4A570423B364}"
 EndProject

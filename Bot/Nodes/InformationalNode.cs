@@ -7,7 +7,7 @@ using Bot.COMM;
 
 namespace Bot.Core
 {
-    public class InformationalNode : Node
+    public class InformationalNode : Node, INode
     {
         public Header Header { get; set; }
         public OptionDisplay OptionDisplay { get; set; }

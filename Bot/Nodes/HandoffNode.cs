@@ -7,7 +7,7 @@ using Bot.COMM;
 
 namespace Bot.Core
 {
-    public class HandoffNode : Node
+    public class HandoffNode : Node,INode
     {
         public HandoffNode() : base() { }
         public Header Header { get; set; }

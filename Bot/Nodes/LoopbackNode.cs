@@ -7,7 +7,7 @@ using Bot.COMM;
 
 namespace Bot.Core
 {
-    public class LoopbackNode : Node
+    public class LoopbackNode : Node,INode
     {
         public LoopbackNode() : base() { }
         public OptionDisplay Option { get; set; }

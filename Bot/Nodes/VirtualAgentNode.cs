@@ -7,7 +7,7 @@ using Bot.COMM;
 
 namespace Bot.Core
 {
-    public class VirtualAgentNode : Node
+    public class VirtualAgentNode : Node,INode
     {
         public VirtualAgentNode() : base() { }
         public Header Header { get; set; }
@@ -16,5 +16,15 @@ namespace Bot.Core
         public Queue Queue { get; set; }
         public bool ShowConfirmation { get; set; }
         public bool DisplayHoursOfOperation { get; set; }
+
+        public override string Display()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override KeyValuePair<Node, string> Handle(string userInput)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -62,7 +62,7 @@
     <Compile Include="NodeListTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Core\Bot.COMM.csproj">
+    <ProjectReference Include="..\Bot.COMM\Bot.COMM.csproj">
       <Project>{dc8a3893-c4e5-4872-a8d3-41c76de55f57}</Project>
       <Name>Bot.COMM</Name>
     </ProjectReference>
