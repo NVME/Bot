@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bot.COMM;
+using Bot.Core;
 
 namespace Bot.Test
 {

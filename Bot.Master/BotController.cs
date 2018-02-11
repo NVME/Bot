@@ -17,7 +17,8 @@ namespace Bot.Master
         public void Create(CreateBotRequest request)
         {
             var profile = request.BotProfile;
-            var menu = NodeList.GetList();
+            var menu = request.Nodes;
+                //NodeList.GetList();
             var queue = request.Queue;
             Master.Create(profile, menu, queue);
         }

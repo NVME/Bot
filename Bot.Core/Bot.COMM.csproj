@@ -42,12 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MapperExtension.cs" />
-    <Compile Include="Model\BotProfile.cs" />
     <Compile Include="Model\Language.cs" />
-    <Compile Include="Model\Node.cs" />
     <Compile Include="Model\Phrase.cs" />
-    <Compile Include="Model\Queue.cs" />
     <Compile Include="Model\QueueDto.cs" />
     <Compile Include="PatternMatch.cs" />
     <Compile Include="WEBAPI\BatchRequest.cs" />

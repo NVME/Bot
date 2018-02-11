@@ -41,8 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BotProfile.cs" />
     <Compile Include="EnhancedChat.cs" />
+    <Compile Include="MapperExtension.cs" />
+    <Compile Include="Nodes\HandoffNode.cs" />
+    <Compile Include="Nodes\InformationalNode.cs" />
+    <Compile Include="Nodes\INode.cs" />
+    <Compile Include="Nodes\LanguageNode.cs" />
+    <Compile Include="Nodes\LoopbackNode.cs" />
+    <Compile Include="Nodes\MenuNode.cs" />
+    <Compile Include="Nodes\Node.cs" />
+    <Compile Include="Nodes\VirtualAgentNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Core\Bot.COMM.csproj">
