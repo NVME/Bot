@@ -11,8 +11,7 @@ namespace Bot.Core
     {
         public VirtualAgentNode() : base() { }
         public Header Header { get; set; }
-        public Disclaimer Disclaimer { get; set; }
-        public OptionDisplay OptionDisplay { get; set; }
+        public Disclaimer Disclaimer { get; set; }        
         public Queue Queue { get; set; }
         public bool ShowConfirmation { get; set; }
         public bool DisplayHoursOfOperation { get; set; }

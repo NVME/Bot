@@ -13,11 +13,14 @@ namespace Bot.Core
         public int Id { get; set; }
         public int ParentId { get; set; }
         public Node Parent { get; set; }
+        public OptionDisplay OptionDisplay { get; set; }
         public List<GlobalPhrase> Keywords { get; set; }
+        public string LanguageCode { get; set; }
         public string CweCommand { get; set; }
         public string AdditionalOptions { get; set; }
         protected Node()
         {
+            LanguageCode = "en-us";// default language, will be reset in language node and pass to next node;
             Keywords = new List<GlobalPhrase>();
         }
 

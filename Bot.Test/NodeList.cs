@@ -14,162 +14,9 @@ namespace Bot.Test
 
         public static List<NodeDto> GetList(string region = "apj")
         {
+            NodeDto welcome = GenerateLangageNodeDto();
 
-
-            var english = new Language
-            {
-                EnglishName = "English",
-                LanguageCode = "en-us",
-                LanguageId = 1,
-                LocalName = "English",
-                keywords = new List<string> { "en", "english", "EN", "English", "ENGLISH", "en-us" }
-            };
-            var cantonese = new Language
-            {
-                EnglishName = "Cantonese",
-                LanguageCode = "cantonese",
-                LanguageId = 5,
-                LocalName = "Yue Yu",
-                keywords = new List<string> { "yue", "cantonese" }
-            };
-            var mandarin = new Language
-            {
-                EnglishName = "Mandarin",
-                LanguageCode = "mandarin",
-                LanguageId = 3,
-                LocalName = "Pu Tong Hua",
-                keywords = new List<string> { "han" }
-            };
-
-            var japanese = new Language
-            {
-                EnglishName = "Japanese",
-                LanguageCode = "japanese",
-                LanguageId = 6,
-                LocalName = "Ri Yu",
-                keywords = new List<string> { "ri", "jpan" }
-            };
-
-            var korean = new Language
-            {
-                EnglishName = "Korean",
-                LanguageCode = "korean",
-                LanguageId = 6,
-                LocalName = "Chao Xian Yu",
-                keywords = new List<string> { "korean", "k" }
-            };
-
-            var welcome = new NodeDto
-            {
-                Id = 10001,
-                ParentId = 10001,
-                TypeId = (int)NodeType.LanguageNode,// Language node
-                TypeName = "LanguageNode",
-                HeaderText = new GlobalPhrase
-                {
-                    Id = "",
-                    Phrases = new List<LocalPhrase> {
-                          new LocalPhrase {  LanguageCode="en-us",
-                              Text = "Welcome to the Service Desk!" },
-                           new LocalPhrase {  LanguageCode="cantonese",Text = "歡迎來到服務台！" },
-                           new LocalPhrase {LanguageCode="mandarin",Text="欢迎来到服务台！"},
-                           new LocalPhrase {LanguageCode="japanese", Text="Service Deskへようこそ！"},
-                           new LocalPhrase {LanguageCode="korean", Text="Service Desk에 오신 것을 환영합니다!"}
-                    }
-                },
-                HeaderTextFormat = "font-weight: bold;",
-                DisclaimerText = new GlobalPhrase
-                {
-                    Id = "",
-                    Phrases = new List<LocalPhrase> {
-                          new LocalPhrase {  LanguageCode="en-us",
-                              Text = "This converstaion may be recorded for quality assurance purposes." },
-                           new LocalPhrase {  LanguageCode="cantonese",Text = "為了質量保證的目的，這個對話可能被記錄下來。" },
-                           new LocalPhrase {LanguageCode="mandarin",Text="为了保证质量，可能会记录此对话！"},
-                           new LocalPhrase {LanguageCode="japanese", Text="「この会話は、品質保証の目的で記録されるかもしれません。"},
-                           new LocalPhrase {LanguageCode="korean", Text="이 대화는 품질 보증 목적으로 기록 될 수 있습니다."}
-                    }
-                },
-                DisclaimerTextFormat = "font-style: italic;",
-                FooterText = new GlobalPhrase
-                {
-                    Id = "",
-                    Phrases = new List<LocalPhrase> {
-                          new LocalPhrase {  LanguageCode="en-us",
-                              Text = "To speak with an agent at any time type \"agent\"" },
-                           new LocalPhrase {  LanguageCode="cantonese",Text = "隨時與代理商聯繫打“代理商”" },
-                           new LocalPhrase {LanguageCode="mandarin",Text="随时与代理商联系打“代理商”"},
-                           new LocalPhrase {LanguageCode="japanese", Text="いつでもエージェントと話すには、エージェント とタイプします。"},
-                           new LocalPhrase {LanguageCode="korean", Text="언제든지 상담원과 통화하려면 “상담원” 을 입력하십시오."}
-                    }
-                },
-
-                FooterTextFormat = "",
-                Keywords = new List<GlobalPhrase>(),
-                OptionText = new GlobalPhrase(),
-                OptionTextFormat = "",
-                LanguageOptions = new List<LanguageOption> {
-                     new LanguageOption {Language=english, NodeId=11001 },
-                     new LanguageOption {Language=cantonese,NodeId=11001 },
-                     new LanguageOption {Language=mandarin,NodeId=11001 },
-                     new LanguageOption {Language=japanese,NodeId=11001 },
-                     new LanguageOption {Language=korean, NodeId=11001 }
-                    },
-                LanguageAltText = new List<string> { "en", "can", "mad", "jpn", "kor" },
-                Queue = null,
-                QueueName = null,
-                UseEnglishLanguageName = true,
-                DisableGoBackOption = false,
-                DisplayChosenText = false,
-                DisplayHoursOfOperation = false,
-                DisplaySelectionText = false,
-                ShowConfirmation = false,
-                HideMenu = false,
-                HideMenuNumbers = false,
-                AdditionalOptions = "",
-                CweCommand = ""
-            };
-
-            var menu = new NodeDto
-            {
-                Id = 11001,
-                ParentId = 11001, // top node , it is its own parent
-                TypeId = (int)NodeType.MenuNode,// Menu node
-                TypeName = "MenuNode",
-                HeaderText = new GlobalPhrase
-                {
-                    Id = "",
-                    Phrases = new List<LocalPhrase> {
-                          new LocalPhrase {  LanguageCode="en-us",
-                              Text = "Please select the category that best describes your issue by typing a number:" },
-                           new LocalPhrase {  LanguageCode="cantonese",Text = "請通過輸入一個數字來選擇最能描述您問題的類別：" },
-                           new LocalPhrase {LanguageCode="mandarin",Text="请通过输入一个数字来选择最能描述您问题的类别："},
-                           new LocalPhrase {LanguageCode="japanese", Text="番号を入力して、問題を最もよく表すカテゴリを選択してください："},
-                           new LocalPhrase {LanguageCode="korean", Text="번호를 입력하여 문제를 가장 잘 설명하는 카테고리를 선택하십시오."}
-                    }
-                },
-                HeaderTextFormat = "font-weight: bold;",
-                DisclaimerText = new GlobalPhrase(),
-                DisclaimerTextFormat = "",
-                FooterText = new GlobalPhrase(),
-                FooterTextFormat = "",
-                Keywords = new List<GlobalPhrase>(),
-                OptionText = new GlobalPhrase(),
-                OptionTextFormat = "",
-                LanguageAltText = new List<string>(),
-                Queue = null,
-                QueueName = null,
-                UseEnglishLanguageName = false,
-                DisableGoBackOption = false,
-                DisplayChosenText = false,
-                DisplayHoursOfOperation = false,
-                DisplaySelectionText = true,
-                ShowConfirmation = false,
-                HideMenu = false,
-                HideMenuNumbers = false,
-                AdditionalOptions = "",
-                CweCommand = ""
-            };
+            NodeDto menu = GenerateMenuNodeDto();
 
             var passwordReset = new NodeDto
             {
@@ -857,6 +704,169 @@ namespace Bot.Test
             };
             list.AddMany<NodeDto>(welcome, menu, passwordReset, software, status, outlook, sap, ssna, other, handoffother, handoffoutlook);
             return list;
+        }
+
+        private static NodeDto GenerateMenuNodeDto()
+        {
+            var menu = new NodeDto
+            {
+                Id = 11001,
+                ParentId = 11001, // top node , it is its own parent
+                TypeId = (int)NodeType.MenuNode,// Menu node
+                TypeName = "MenuNode",
+                HeaderText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",
+                              Text = "Please select the category that best describes your issue by typing a number:" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "請通過輸入一個數字來選擇最能描述您問題的類別：" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="请通过输入一个数字来选择最能描述您问题的类别："},
+                           new LocalPhrase {LanguageCode="japanese", Text="番号を入力して、問題を最もよく表すカテゴリを選択してください："},
+                           new LocalPhrase {LanguageCode="korean", Text="번호를 입력하여 문제를 가장 잘 설명하는 카테고리를 선택하십시오."}
+                    }
+                },
+                HeaderTextFormat = "font-weight: bold;",
+                DisclaimerText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",
+                              Text = "This converstaion may be recorded for quality assurance purposes." },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "為了質量保證的目的，這個對話可能被記錄下來。" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="为了保证质量，可能会记录此对话！"},
+                           new LocalPhrase {LanguageCode="japanese", Text="「この会話は、品質保証の目的で記録されるかもしれません。"},
+                           new LocalPhrase {LanguageCode="korean", Text="이 대화는 품질 보증 목적으로 기록 될 수 있습니다."}
+                    }
+                },
+                DisclaimerTextFormat = "color:#888;",
+                FooterText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",
+                              Text = "To speak with an agent at any time type \"agent\"" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "隨時與代理商聯繫打“代理商”" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="随时与代理商联系打“代理商”"},
+                           new LocalPhrase {LanguageCode="japanese", Text="いつでもエージェントと話すには、エージェント とタイプします。"},
+                           new LocalPhrase {LanguageCode="korean", Text="언제든지 상담원과 통화하려면 “상담원” 을 입력하십시오."}
+                    }
+                },
+
+                FooterTextFormat = "",
+                Keywords = new List<GlobalPhrase>(),
+                OptionText = new GlobalPhrase(),
+                OptionTextFormat = "",
+                LanguageAltText = new List<string>(),
+                Queue = null,
+                QueueName = null,
+                UseEnglishLanguageName = false,
+                DisableGoBackOption = false,
+                DisplayChosenText = false,
+                DisplayHoursOfOperation = false,
+                DisplaySelectionText = true,
+                ShowConfirmation = false,
+                HideMenu = false,
+                HideMenuNumbers = false,
+                AdditionalOptions = "",
+                CweCommand = ""
+            };
+            return menu;
+        }
+
+        public static NodeDto GenerateLangageNodeDto()
+        {
+            var english = new Language
+            {
+                EnglishName = "English",
+                LanguageCode = "en-us",
+                LanguageId = 1,
+                LocalName = "English",
+                keywords = new List<string> { "en", "english", "EN", "English", "ENGLISH", "en-us" }
+            };
+            var cantonese = new Language
+            {
+                EnglishName = "Cantonese",
+                LanguageCode = "cantonese",
+                LanguageId = 5,
+                LocalName = "Yue Yu",
+                keywords = new List<string> { "yue", "cantonese" }
+            };
+            var mandarin = new Language
+            {
+                EnglishName = "Mandarin",
+                LanguageCode = "mandarin",
+                LanguageId = 3,
+                LocalName = "Pu Tong Hua",
+                keywords = new List<string> { "han" }
+            };
+
+            var japanese = new Language
+            {
+                EnglishName = "Japanese",
+                LanguageCode = "japanese",
+                LanguageId = 6,
+                LocalName = "Ri Yu",
+                keywords = new List<string> { "ri", "jpan" }
+            };
+
+            var korean = new Language
+            {
+                EnglishName = "Korean",
+                LanguageCode = "korean",
+                LanguageId = 6,
+                LocalName = "Chao Xian Yu",
+                keywords = new List<string> { "korean", "k" }
+            };
+
+            var welcome = new NodeDto
+            {
+                Id = 10001,
+                ParentId = 10001,
+                TypeId = (int)NodeType.LanguageNode,// Language node
+                TypeName = "LanguageNode",
+                HeaderText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",
+                              Text = "Welcome to the Service Desk! Please select your language." },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "歡迎來到服務台！" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="欢迎来到服务台！"},
+                           new LocalPhrase {LanguageCode="japanese", Text="Service Deskへようこそ！"},
+                           new LocalPhrase {LanguageCode="korean", Text="Service Desk에 오신 것을 환영합니다!"}
+                    }
+                },
+                HeaderTextFormat = "font-size:large",
+                DisclaimerText = null,
+                DisclaimerTextFormat = "",
+                FooterText = null,
+                FooterTextFormat = "",
+                Keywords = new List<GlobalPhrase>(),
+                OptionText = new GlobalPhrase(),
+                OptionTextFormat = "",
+                LanguageOptions = new List<LanguageOption> {
+                     new LanguageOption {Language=english, NodeId=11001 },
+                     new LanguageOption {Language=cantonese,NodeId=11001 },
+                     new LanguageOption {Language=mandarin,NodeId=11001 },
+                     new LanguageOption {Language=japanese,NodeId=11001 },
+                     new LanguageOption {Language=korean, NodeId=11001 }
+                    },
+                LanguageAltText = new List<string> { "en", "can", "mad", "jpn", "kor" },
+                Queue = null,
+                QueueName = null,
+                UseEnglishLanguageName = true,
+                DisableGoBackOption = false,
+                DisplayChosenText = false,
+                DisplayHoursOfOperation = false,
+                DisplaySelectionText = false,
+                ShowConfirmation = false,
+                HideMenu = false,
+                HideMenuNumbers = false,
+                AdditionalOptions = "",
+                CweCommand = ""
+            };
+            return welcome;
         }
 
         public static string ToJson()

@@ -1,6 +1,7 @@
 ﻿using System;
 using Bot.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Xml.Linq;
 
 namespace Bot.Test
 {
@@ -33,6 +34,34 @@ namespace Bot.Test
             //Assert.IsTrue(lang.Nodes[1] is MenuNode);
             //var node1 = lang.Nodes[1] as MenuNode;
             //Assert.IsTrue(node1.Nodes[0] is InformationalNode);
+        }
+        [TestMethod]
+        public void TestXelement()
+        {
+            var el = new XElement("");
+            var s = el.ToString();
+        }
+
+        [TestMethod]
+        public void TestLanguageNode()
+        {
+            var dto = NodeList.GenerateLangageNodeDto();
+            var langNode = new LanguageNode
+            {
+                Id = dto.Id,
+                ParentId = dto.ParentId,
+                Parent = null,
+                Header = new Header { Format = dto.HeaderTextFormat, Text = dto.HeaderText },
+                Footer = new Footer { Format = dto.FooterTextFormat, Text = dto.FooterText },
+                Disclaimer = new Disclaimer { Format = dto.DisclaimerTextFormat, Text = dto.DisclaimerText },
+                Keywords = dto.Keywords,
+                LanguageOptions = dto.LanguageOptions,
+                LanguagesAltText = dto.LanguageAltText,
+                UseEnglishLanguageName = dto.UseEnglishLanguageName,
+                AdditionalOptions = dto.AdditionalOptions,
+                CweCommand = dto.CweCommand
+            };
+            var html = langNode.Display();
         }
     }
 }

@@ -9,8 +9,7 @@ namespace Bot.Core
 {
     public class LoopbackNode : Node,INode
     {
-        public LoopbackNode() : base() { }
-        public OptionDisplay Option { get; set; }
+        public LoopbackNode() : base() { }       
 
         public override string Display()
         {

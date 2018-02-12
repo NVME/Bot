@@ -9,8 +9,7 @@ namespace Bot.Core
 {
     public class InformationalNode : Node, INode
     {
-        public Header Header { get; set; }
-        public OptionDisplay OptionDisplay { get; set; }
+        public Header Header { get; set; }        
         public bool DisplayChosenText { get; set; }
         public bool DisplayConnectionText { get; set; }
         public bool DisableGoBackOption { get; set; }
