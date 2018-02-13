@@ -2,6 +2,7 @@
 using Bot.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Xml.Linq;
+using System.Globalization;
 
 namespace Bot.Test
 {
@@ -38,9 +39,10 @@ namespace Bot.Test
         [TestMethod]
         public void TestXelement()
         {
-            var el = new XElement("");
-            var s = el.ToString();
-           
+            //var el = new XElement("");
+            //var s = el.ToString();
+           var dt= DateTime.ParseExact(18.ToString("00"), "HH", CultureInfo.CurrentCulture)
+        .ToString("hh:mm tt");
 
 
         }

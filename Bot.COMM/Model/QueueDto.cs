@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 namespace Bot.COMM
 {
     [DataContract]
-    public class QueueDto:Dto
+    public class QueueDto : Dto
     {
         [DataMember]
-        public int Id { get; set; }        
+        public int Id { get; set; }
         [DataMember]
         public string Name { get; set; }
         [DataMember]
@@ -72,6 +73,14 @@ namespace Bot.COMM
         public bool IsInWindow(DateTime dt, DayOfWeek dayofWeek)
         {
             return dt.DayOfWeek == dayofWeek && dt.Hour >= StartHour && dt.Hour < EndHour;
+        }
+        public override string ToString()
+        {
+
+            return 
+                DateTime.ParseExact(StartHour.ToString("00"), "HH", CultureInfo.CurrentCulture).ToString("hh:mm tt")
+             + " -- " +
+                DateTime.ParseExact(EndHour.ToString("00"), "HH", CultureInfo.CurrentCulture).ToString("hh:mm tt"); ;
         }
     }
     [DataContract]

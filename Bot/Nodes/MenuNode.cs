@@ -46,12 +46,27 @@ namespace Bot.Core
                          new XElement("span", new XAttribute("style", string.IsNullOrEmpty(Disclaimer.Format) ?
                                                                     DefaultSettingSingleton.Instance.DisclaimerTextFormat : Disclaimer.Format),
                             new XElement("span",
-                                Disclaimer.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                Disclaimer.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()                                
                                 )
                           ),
                           new XElement("br"),
                           new XElement("br")
                       ),
+                      !DisplayChosenText ?//if display chosen text is false, display < foo />
+                      new XElement("foo") :
+                      new XElement("div",  // display chose text ,Ex. "You have chosen Password Reset."
+                          new XElement("span", new XAttribute("style", DefaultSettingSingleton.Instance.BodyTextFormat),
+                                    new XElement("span",
+                                       DefaultSettingSingleton.Instance.SystemTextSettings.ChosenText.Content.Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                        + " " +
+                                        OptionDisplay.Text.Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                        )
+                          ),
+                          new XElement("br"),
+                          new XElement("br")
+                     ),
                      !DisplaySelectionText ?//if display selection text is false, display < foo />
                       new XElement("foo") :
                       new XElement("div",
@@ -75,13 +90,24 @@ namespace Bot.Core
                                             ),
                                     new XElement("span", new XAttribute("style", string.IsNullOrEmpty(o.OptionDisplay.Format) ?
                                                                               DefaultSettingSingleton.Instance.MenuOptionTextFormat : o.OptionDisplay.Format),
-                                                 new XElement("span", o.OptionDisplay.Text.Phrases
-                                                                        .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
-                                                ),
+                                                        new XElement("span", o.GetOptionDisplayText(this.LanguageCode))
+                                                 ),
                                          new XElement("br")
                                        )),
                              new XElement("br")
                             ),
+                      !DisableGoBackOption ?//if display go back text is false, display < foo />
+                      new XElement("foo") :
+                      new XElement("div",
+                          new XElement("span", new XAttribute("style", DefaultSettingSingleton.Instance.BodyTextFormat),
+                                    new XElement("span",
+                                       DefaultSettingSingleton.Instance.SystemTextSettings.GoBackText.Content.Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                        )
+                          ),
+                          new XElement("br"),
+                          new XElement("br")
+                     ),
                      Footer == null || Footer.Text == null || Footer.Text.Phrases.Count == 0 ?// Footer section
                      new XElement("foo") :  //If fotter is empty, display < foo />
                       new XElement("div",

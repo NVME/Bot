@@ -23,7 +23,10 @@ namespace Bot.Core
             LanguageCode = "en-us";// default language, will be reset in language node and pass to next node;
             Keywords = new List<GlobalPhrase>();
         }
-
+        public virtual string GetOptionDisplayText(string languageCode)
+        {
+            return OptionDisplay.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault();
+        }
         public abstract string Display();
         public abstract KeyValuePair<Node, string> Handle(string userInput);
     }
