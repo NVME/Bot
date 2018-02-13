@@ -25,22 +25,22 @@ namespace Bot.Core
         public override string Display()
         {
             return new XElement("div",
-                    Header == null || Header.Text == null || Header.Text.Phrases.Count==0 ?  // Header section
+                    Header == null || Header.Text == null || Header.Text.Phrases.Count == 0 ?  // Header section
                     new XElement("foo") :// if header is empty, display <foo/>
                     new XElement("div",
-                        new XElement("span",
-                          new XElement("span", new XAttribute("style", Header.Format),
-                            Header.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p=>p.Text).FirstOrDefault()
+                        new XElement("span", new XAttribute("style", string.IsNullOrEmpty(Header.Format) ? DefaultSettingSingleton.Instance.HeaderTextFormat : Header.Format),
+                          new XElement("span",
+                            Header.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                             )
                       ),
                           new XElement("br"),
                           new XElement("br")
                       ),
-                     Disclaimer == null|| Disclaimer.Text==null|| Disclaimer.Text.Phrases.Count==0 ?  // Disclaimer section
+                     Disclaimer == null || Disclaimer.Text == null || Disclaimer.Text.Phrases.Count == 0 ?  // Disclaimer section
                      new XElement("foo") :  //if Disclaimer is empty, display < foo />
                      new XElement("div",
-                         new XElement("span",
-                            new XElement("span", new XAttribute("style", Disclaimer.Format),
+                         new XElement("span", new XAttribute("style", string.IsNullOrEmpty(Disclaimer.Format) ? DefaultSettingSingleton.Instance.DisclaimerTextFormat : Disclaimer.Format),
+                            new XElement("span",
                                 Disclaimer.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                                 )
                           ),
@@ -50,20 +50,25 @@ namespace Bot.Core
                      LanguageOptions == null ?// options section
                      new XElement("foo") :  //If options is empty, display < foo />
                      new XElement("div",
-                            LanguageOptions.Select((l,i) =>
-                                    new XElement("span", new XAttribute("style", "color:#0000EE;"),
-                                                 new XText((i+1).ToString()+"."),
-                                                 new XElement("span", UseEnglishLanguageName ? l.Language.EnglishName : l.Language.LocalName),
-                                                 new XElement("br")
-                                                )
-                                       ),
-                             new XElement("br")
+                            LanguageOptions.Select((l, i) =>
+                               new XElement("div",
+                                       new XElement("span", new XAttribute("style", DefaultSettingSingleton.Instance.MenuNumberTextFormat),
+                                                         new XText((i + 1).ToString() + ".")
+                                                    ),
+                                       new XElement("span", new XAttribute("style", DefaultSettingSingleton.Instance.MenuOptionTextFormat),
+                                                         new XElement("span", UseEnglishLanguageName ? l.Language.EnglishName : l.Language.LocalName)
+                                                        )
+                                               ,
+                                     new XElement("br")
+                                    )
+                               ),
+                            new XElement("br")
                             ),
-                     Footer == null || Footer.Text == null || Footer.Text.Phrases.Count== 0 ?// Footer section
+                     Footer == null || Footer.Text == null || Footer.Text.Phrases.Count == 0 ?// Footer section
                      new XElement("foo") :  //If fotter is empty, display < foo />
                       new XElement("div",
-                        new XElement("span",
-                          new XElement("span", new XAttribute("style", Footer.Format),
+                        new XElement("span", new XAttribute("style", Footer.Format),
+                          new XElement("span",
                             Footer.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                             )
                          )

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\DefaultSetting.cs" />
     <Compile Include="Model\Language.cs" />
     <Compile Include="Model\Phrase.cs" />
     <Compile Include="Model\QueueDto.cs" />

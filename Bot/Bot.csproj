@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotProfile.cs" />
+    <Compile Include="DefaultSettingSingleton.cs" />
     <Compile Include="EnhancedChat.cs" />
     <Compile Include="MapperExtension.cs" />
     <Compile Include="Nodes\HandoffNode.cs" />
