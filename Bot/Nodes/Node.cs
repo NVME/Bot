@@ -13,7 +13,8 @@ namespace Bot.Core
         public int Id { get; set; }
         public int ParentId { get; set; }
         public Node Parent { get; set; }
-        public OptionDisplay OptionDisplay { get; set; }
+        public FormattingOptions TextFormat { get; set; }
+        public GlobalPhrase OptionDisplayText { get; set; }
         public List<GlobalPhrase> Keywords { get; set; }
         public string LanguageCode { get; set; }
         public string CweCommand { get; set; }
@@ -25,24 +26,15 @@ namespace Bot.Core
         }
         public virtual string GetOptionDisplayText(string languageCode)
         {
-            return OptionDisplay.Text.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault();
+            return OptionDisplayText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault();
         }
-        public abstract string Display();
-        public abstract KeyValuePair<Node, string> Handle(string userInput);
+        public abstract string Display(SystemTextSetting settings);
+        public abstract InteractionResult Handle(string userInput);
     }
 
-    #region Parts
-    public class TextBase
+   public class InteractionResult
     {
-        public GlobalPhrase Text { get; set; }
-        public string Format { get; set; }
+        public Node Next { get; set; }
+        public string Message { get; set; }
     }
-    public class Header : TextBase { }
-    public class Disclaimer : TextBase { }
-    public class Footer : TextBase { }
-    public class OptionDisplay : TextBase { }
-
-
-
-    #endregion
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Bot.COMM;
 
 namespace Bot.Core
 {
@@ -6,13 +6,13 @@ namespace Bot.Core
     {
         /// <summary> Gets node's UI/Display. </summary>
         /// <returns></returns>
-         string Display();
+         string Display( SystemTextSetting settings);
         /// <summary>
         /// 
         /// Hand user input, return next node, if no next node , retrun it self and message.
         /// </summary>
         /// <param name="sMessage"></param>
         /// <returns></returns>
-        KeyValuePair<Node, string> Handle(string sMessage);
+        InteractionResult Handle(string sMessage);
     }
 }

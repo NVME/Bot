@@ -56,9 +56,10 @@ namespace Bot.Test
                 Id = dto.Id,
                 ParentId = dto.ParentId,
                 Parent = null,
-                Header = new Header { Format = dto.HeaderTextFormat, Text = dto.HeaderText },
-                Footer = new Footer { Format = dto.FooterTextFormat, Text = dto.FooterText },
-                Disclaimer = new Disclaimer { Format = dto.DisclaimerTextFormat, Text = dto.DisclaimerText },
+                TextFormat = dto.TextFormat,
+                HeaderText = dto.HeaderText,
+                FooterText = dto.FooterText,
+                DisclaimerText = dto.DisclaimerText,
                 Keywords = dto.Keywords,
                 LanguageOptions = dto.LanguageOptions,
                 LanguagesAltText = dto.LanguageAltText,
@@ -66,7 +67,7 @@ namespace Bot.Test
                 AdditionalOptions = dto.AdditionalOptions,
                 CweCommand = dto.CweCommand
             };
-            var html = langNode.Display();
+            var html = langNode.Display(new COMM.SystemTextSetting());
         }
     }
 }

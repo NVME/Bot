@@ -37,7 +37,7 @@ namespace Bot.Master
                 new EndpointAddress(new Uri("net.pipe://localhost/snav/bot/endpoint/" + processid))))
             {
                 var botService = factory.CreateChannel();
-                botService.CreateBotService(new BotEndpoint() {  BotProfile=bot,Nodes=nodes,Queue=queue});
+                botService.CreateBotService(new BotConfig() {  BotProfile=bot,Nodes=nodes,Queue=queue});
             }
             Console.WriteLine("Request sent out!");
 
@@ -55,7 +55,7 @@ namespace Bot.Master
                 new EndpointAddress(new Uri("net.pipe://localhost/snav/bot/endpoint/" + processid))))
             {
                 var botService = factory.CreateChannel();
-                botService.StartBotService(new BotEndpoint());
+                botService.StartBotService(new BotConfig());
             }
         }
 
@@ -70,7 +70,7 @@ namespace Bot.Master
                 new EndpointAddress(new Uri("net.pipe://localhost/snav/bot/endpoint/" + processid))))
             {
                 var botService = factory.CreateChannel();
-                botService.StopBotService(new BotEndpoint());
+                botService.StopBotService(new BotConfig());
             }
         }
 
@@ -85,7 +85,7 @@ namespace Bot.Master
                 new EndpointAddress(new Uri("net.pipe://localhost/snav/bot/endpoint/" + processid))))
             {
                 var botService = factory.CreateChannel();
-                botService.DrainBotService(new BotEndpoint());
+                botService.DrainBotService(new BotConfig());
             }
         }
     }

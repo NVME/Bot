@@ -19,27 +19,29 @@ namespace Bot.COMM
         [DataMember]
         public int ParentId { get; set; }
         [DataMember]
-        public GlobalPhrase HeaderText { get; set; }//Text displayed at the top of the menu. (optional)
+        public FormattingOptions TextFormat { get; set; }
         [DataMember]
-        public string HeaderTextFormat { get; set; }//CSS formatting string for the text. (optional)
+        public GlobalPhrase HeaderText { get; set; }//Text displayed at the top of the menu. (optional)
+        //[DataMember]
+        //public string HeaderTextFormat { get; set; }//CSS formatting string for the text. (optional)
         [DataMember]
         public GlobalPhrase DisclaimerText { get; set; }//Text displayed in smaller font under the header. (optional)
-        [DataMember]
-        public string DisclaimerTextFormat { get; set; }//CSS formatting string for the text. (optional)
+        //[DataMember]
+        //public string DisclaimerTextFormat { get; set; }//CSS formatting string for the text. (optional)
         [DataMember]
         public GlobalPhrase FooterText { get; set; }//Text displayed below the menu. (optional)
-        [DataMember]
-        public string FooterTextFormat { get; set; }//CSS formatting string for the text. (optional)
+        //[DataMember]
+        //public string FooterTextFormat { get; set; }//CSS formatting string for the text. (optional)
         [DataMember]
         public List<GlobalPhrase> Keywords { get; set; }//Keywords that will select this node from a menu. (optional)
         [DataMember]
         public GlobalPhrase OptionText { get; set; }//The text displayed in a menu containing this node.
-        [DataMember]
-        public string OptionTextFormat { get; set; }//CSS formatting string for the text. (optional)
-        [DataMember]
-        public bool DisplayChosenText { get; set; }//Determines if the standard "You have chosen the xxx option" text is shown. Default is true.
-        [DataMember]
-        public bool DisplaySelectionText { get; set; }//Determines if the selection instruction text is displayed. Default is true.
+        //[DataMember]
+        //public string OptionTextFormat { get; set; }//CSS formatting string for the text. (optional)
+        //[DataMember]
+        //public bool DisplayChosenText { get; set; }//Determines if the standard "You have chosen the xxx option" text is shown. Default is true.
+        //[DataMember]
+        //public bool DisplaySelectionText { get; set; }//Determines if the selection instruction text is displayed. Default is true.
         [DataMember]
         public bool DisableGoBackOption { get; set; }//Determines if the standard "Go back to the previous level" option is shown (if applicable). Default is false.
         [DataMember]
@@ -66,12 +68,8 @@ namespace Bot.COMM
         public List<string> LanguageAltText { get; set; }//The label for each langauge in the menu if the language name is not desired.
         [DataMember]
         public bool UseEnglishLanguageName { get; set; }//Displays the English name for each language in the menu instead of the localized name.
-
-
-
-
-
-
+        [DataMember]
+        public int NodeLinkNodeId { get; set; } // used by node link
     }
 
     [DataContract]
@@ -80,18 +78,18 @@ namespace Bot.COMM
         public InformationalNodeDto()
         {
             DisclaimerText = null;
-            DisclaimerTextFormat = "";
+           // DisclaimerTextFormat = "";
             FooterText = null;
-            FooterTextFormat = "";
+           // FooterTextFormat = "";
             LanguageOptions = null;
             LanguageAltText = null;
             Queue = null;
             QueueName = null;
             UseEnglishLanguageName = false;
             DisableGoBackOption = true;
-            DisplayChosenText = true;
+            //DisplayChosenText = true;
             DisplayHoursOfOperation = false;
-            DisplaySelectionText = false;
+           // DisplaySelectionText = false;
             ShowConfirmation = false;
             HideMenu = false;
             HideMenuNumbers = false;

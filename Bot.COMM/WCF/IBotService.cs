@@ -12,13 +12,13 @@ namespace Bot.COMM
     public interface IBotService
     {
         [OperationContract]
-        void CreateBotService(BotEndpoint botEndpoint);
+        void CreateBotService(BotConfig config);
         [OperationContract]
-        void StartBotService(BotEndpoint botEndpoint);
+        void StartBotService(BotConfig config);
         [OperationContract]
-        void StopBotService(BotEndpoint botEndpoint);
+        void StopBotService(BotConfig config);
         [OperationContract]
-        void DrainBotService(BotEndpoint botEndpoint);
+        void DrainBotService(BotConfig config);
 
     }
 }

@@ -12,11 +12,11 @@ namespace Bot.Worker
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class BotService : IBotService
     {
-        void IBotService.CreateBotService(BotEndpoint botEndpoint)
+        void IBotService.CreateBotService(BotConfig config)
         {
             try
             {
-                Worker.Instance.CreateBotService(botEndpoint);
+                Worker.Instance.CreateBotService(config);
             }
             catch (Exception ex)
             {
@@ -29,24 +29,24 @@ namespace Bot.Worker
            
         }
 
-        void IBotService.StartBotService(BotEndpoint botEndpoint)
+        void IBotService.StartBotService(BotConfig config)
         {
             
-            Worker.Instance.StartBotService(botEndpoint);
+            Worker.Instance.StartBotService(config);
            
         }
 
-        void IBotService.StopBotService(BotEndpoint botEndpoint)
+        void IBotService.StopBotService(BotConfig config)
         {
            
-            Worker.Instance.StopBotService(botEndpoint);
+            Worker.Instance.StopBotService(config);
             
         }
 
-        void IBotService.DrainBotService(BotEndpoint botEndpoint)
+        void IBotService.DrainBotService(BotConfig config)
         {
             
-            Worker.Instance.DrainBotService(botEndpoint);
+            Worker.Instance.DrainBotService(config);
            
         }
 

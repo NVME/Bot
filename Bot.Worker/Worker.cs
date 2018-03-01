@@ -26,12 +26,12 @@ namespace Bot.Worker
         {
         }
 
-        public void CreateBotService(BotEndpoint botEndpoint)
+        public void CreateBotService(BotConfig config)
         {
             Console.WriteLine("Create Bot Service starts....");
             lock (_objectForLock)
             {
-                if (IsCurrentBot(botEndpoint))
+                if (IsCurrentBot(config))
                 {
                     throw new InvalidOperationException("You can not start another bot in different settings in the same process.");
                 }           
@@ -44,22 +44,22 @@ namespace Bot.Worker
             }
         }
 
-        private bool IsCurrentBot(BotEndpoint botEndpoint)
+        private bool IsCurrentBot(BotConfig config)
         {
             return false;
         }
 
-        public void StartBotService(BotEndpoint botEndpoint)
+        public void StartBotService(BotConfig config)
         {
             bot.Start();
         }
 
-        public void StopBotService(BotEndpoint botEndpoint)
+        public void StopBotService(BotConfig config)
         {
             bot.Stop();
         }
 
-        public void DrainBotService(BotEndpoint botEndpoint)
+        public void DrainBotService(BotConfig config)
         {
             bot.Drain();
         }

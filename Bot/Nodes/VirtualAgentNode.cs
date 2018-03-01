@@ -10,18 +10,18 @@ namespace Bot.Core
     public class VirtualAgentNode : Node,INode
     {
         public VirtualAgentNode() : base() { }
-        public Header Header { get; set; }
-        public Disclaimer Disclaimer { get; set; }        
+        public GlobalPhrase HeaderText { get; set; }
+        public GlobalPhrase DisclaimerText { get; set; }        
         public Queue Queue { get; set; }
         public bool ShowConfirmation { get; set; }
         public bool DisplayHoursOfOperation { get; set; }
 
-        public override string Display()
+        public override string Display(SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }
 
-        public override KeyValuePair<Node, string> Handle(string userInput)
+        public override InteractionResult Handle(string userInput)
         {
             throw new NotImplementedException();
         }

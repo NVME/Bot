@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Bot.COMM
 {
     [DataContract]
-    public class BotEndpoint
+    public class BotConfig
     {
        
         [DataMember]
