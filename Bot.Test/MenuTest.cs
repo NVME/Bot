@@ -67,7 +67,7 @@ namespace Bot.Test
                 AdditionalOptions = dto.AdditionalOptions,
                 CweCommand = dto.CweCommand
             };
-            var html = langNode.Display(new COMM.SystemTextSetting());
+            var plaintext = langNode.GetPlainText(new COMM.SystemTextSetting());
         }
     }
 }

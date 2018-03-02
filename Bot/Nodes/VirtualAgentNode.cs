@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bot.COMM;
+using Microsoft.Rtc.Collaboration;
 
 namespace Bot.Core
 {
@@ -16,12 +17,19 @@ namespace Bot.Core
         public bool ShowConfirmation { get; set; }
         public bool DisplayHoursOfOperation { get; set; }
 
-        public override string Display(SystemTextSetting settings)
+       
+
+        public override InteractionResult Handle(string userInput)
         {
             throw new NotImplementedException();
         }
 
-        public override InteractionResult Handle(string userInput)
+        public override string GetHtmlText(SystemTextSetting settings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetPlainText(SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }

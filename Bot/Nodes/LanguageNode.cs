@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+
 namespace Bot.Core
 {
     public class LanguageNode : Node, INode
@@ -22,13 +23,14 @@ namespace Bot.Core
             LanguagesAltText = new List<string>();
         }
 
-        public override string Display(SystemTextSetting settings)
+        public override string GetHtmlText(SystemTextSetting settings)
         {
-            return new XElement("div",
+           
+            var html = new XElement("div",
                      HeaderText == null || HeaderText.Phrases.Count == 0 ?  // Header section
                     new XElement("foo") :// if header is empty, display <foo/>
                     new XElement("div",
-                        new XElement("span", new XAttribute("style",TextFormat.HeaderTextFormat),
+                        new XElement("span", new XAttribute("style", TextFormat.HeaderTextFormat),
                           new XElement("span",
                             HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                             )
@@ -73,12 +75,20 @@ namespace Bot.Core
                             )
                          )
                       )
-                ).ToString().Replace("<foo />", string.Empty);
+                );
+            html.Descendants("foo").Remove();
+            return html.ToString();
+        }
+
+        public override string GetPlainText(SystemTextSetting settings)
+        {
+            throw new NotImplementedException();
         }
 
         public override InteractionResult Handle(string userInput)
         {
             throw new NotImplementedException();
         }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bot.COMM;
+using Microsoft.Rtc.Collaboration;
 
 namespace Bot.Core
 {
@@ -6,7 +7,7 @@ namespace Bot.Core
     {
         /// <summary> Gets node's UI/Display. </summary>
         /// <returns></returns>
-         string Display( SystemTextSetting settings);
+        MimePartContentDescription Display( SystemTextSetting settings);
         /// <summary>
         /// 
         /// Hand user input, return next node, if no next node , retrun it self and message.
