@@ -25,7 +25,7 @@ namespace Bot.Core
 
         public override string GetHtmlText(SystemTextSetting settings)
         {
-           
+
             var html = new XElement("div",
                      HeaderText == null || HeaderText.Phrases.Count == 0 ?  // Header section
                     new XElement("foo") :// if header is empty, display <foo/>
@@ -82,7 +82,23 @@ namespace Bot.Core
 
         public override string GetPlainText(SystemTextSetting settings)
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            if (HeaderText != null && HeaderText.Phrases.Count > 0)
+                sb.AppendLine(HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                    .AppendLine();
+            if (DisclaimerText != null && DisclaimerText.Phrases.Count > 0)
+                sb.AppendLine(DisclaimerText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                    .AppendLine();
+            if (LanguageOptions != null)
+            {
+                foreach (var node in LanguageOptions.Select((l, i) => new { l, i }))
+                    sb.AppendLine((node.i + 1).ToString() + "." + (UseEnglishLanguageName ? node.l.Language.EnglishName : node.l.Language.LocalName));               
+                sb.AppendLine();
+            }
+            if (FooterText != null && FooterText.Phrases.Count > 0)
+                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());            
+
+            return sb.ToString();
         }
 
         public override InteractionResult Handle(string userInput)

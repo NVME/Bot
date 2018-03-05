@@ -2,6 +2,7 @@
 using Bot.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Xml.Linq;
+using System.Linq;
 using System.Globalization;
 
 namespace Bot.Test
@@ -67,7 +68,15 @@ namespace Bot.Test
                 AdditionalOptions = dto.AdditionalOptions,
                 CweCommand = dto.CweCommand
             };
-            var plaintext = langNode.GetPlainText(new COMM.SystemTextSetting());
+            var plaintext = langNode.GetPlainText(NodeList.getSystemSetting());
+        }
+
+        [TestMethod]
+        public void TestMenuNode()
+        {
+            var tree = NodeList.GetList().ToNode();
+            var menu = tree.Where<Node>(n => n.Id == 11001).FirstOrDefault();           
+            var plaintext = menu.GetPlainText(NodeList.getSystemSetting());
         }
     }
 }

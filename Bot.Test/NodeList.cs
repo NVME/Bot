@@ -24,7 +24,8 @@ namespace Bot.Test
                 ParentId = 11001,
                 TypeId = 5,// Informational node
                 TypeName = "InformationalNode",
-                TextFormat = new FormattingOptions {
+                TextFormat = new FormattingOptions
+                {
                     BodyTextFormat = "",
                     DisclaimerTextFormat = "",
                     HeaderTextFormat = "",
@@ -33,7 +34,7 @@ namespace Bot.Test
                     ErrorTextFormat = "",
                     GoBackTextFormat = "",
                     DisplayChosenText = true,
-                     DisplaySelectionText=false 
+                    DisplaySelectionText = false
                 },
                 HeaderText = new GlobalPhrase
                 {
@@ -51,7 +52,7 @@ namespace Bot.Test
                                Text ="보안 요구 사항으로 인해 채팅을 통한 비밀번호 재설정이 허용되지 않습니다. JCI 글로벌 ID 비밀번호 재설정의 경우 다음 링크에서 제공되는 셀프 서비스 안내서를 먼저 확인하십시오. 비밀번호 재설정 도구 안내, 추가 도움이 필요하면 서비스에 문의하십시오. 전화를 통한 책상."}
                     }
                 },
-              
+
                 Keywords = new List<GlobalPhrase>{
                         new GlobalPhrase {
                              Id="1",
@@ -90,16 +91,16 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="비밀번호 초기화"}
                     }
                 },
-               
-                DisclaimerText = null,              
-                FooterText = null,               
+
+                DisclaimerText = null,
+                FooterText = null,
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,               
-                DisplayHoursOfOperation = false,              
+                DisableGoBackOption = true,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -141,7 +142,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean",
                                Text ="새로운 소프트웨어 설치 요청에 대해서는 소프트웨어 카탈로그 (https://ordermypc.jci.com/softwareorder/gettingstarted)를 사용하여 요청을 제출하십시오. 그래도 문제가 해결되지 않으면 주 메뉴로 돌아가서 옵션 : 기타 모든 지원."}
                     }
-                },              
+                },
                 Keywords = new List<GlobalPhrase>{
                         new GlobalPhrase {
                              Id="1",
@@ -177,16 +178,16 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="japanese", Text="ソフトウェアのインストール"},
                            new LocalPhrase {LanguageCode="korean", Text="소프트웨어 설치"}
                     }
-                },               
-                DisclaimerText = null,               
-                FooterText = null,               
+                },
+                DisclaimerText = null,
+                FooterText = null,
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,               
-                DisplayHoursOfOperation = false,               
+                DisableGoBackOption = true,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -254,15 +255,15 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="기존 티켓의 상태 확인"}
                     }
                 },
-                DisclaimerText = null,               
-                FooterText = null,             
+                DisclaimerText = null,
+                FooterText = null,
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,                
-                DisplayHoursOfOperation = false,               
+                DisableGoBackOption = true,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -327,15 +328,15 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="Outlook 및 모바일 지원"}
                     }
                 },
-                DisclaimerText = null,               
-                FooterText = null,                
+                DisclaimerText = null,
+                FooterText = null,
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,               
-                DisplayHoursOfOperation = false,               
+                DisableGoBackOption = true,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -376,7 +377,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean",
                                Text ="SAP 지원은 채팅을 통해 제공되지 않습니다. SAP 서비스 데스크에 연결하려면 상담원의 서비스 데스크 번호로 전화하고 2-SAP 지원 옵션을 선택하십시오."}
                     }
-                },                
+                },
                 Keywords = new List<GlobalPhrase>{
                         new GlobalPhrase {
                              Id="1",
@@ -398,15 +399,15 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="SAP 지원"}
                     }
                 },
-                DisclaimerText = null,               
-                FooterText = null,               
+                DisclaimerText = null,
+                FooterText = null,
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,                
-                DisplayHoursOfOperation = false,               
+                DisableGoBackOption = true,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -468,16 +469,16 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="japanese", Text="AMS Only-BE SSNAサポート"},
                            new LocalPhrase {LanguageCode="korean", Text="AMS Only-BE SSNA 지원"}
                     }
-                },               
-                DisclaimerText = null,               
-                FooterText = null,                
+                },
+                DisclaimerText = null,
+                FooterText = null,
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,               
-                DisplayHoursOfOperation = false,               
+                DisableGoBackOption = true,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -518,7 +519,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean",
                                Text ="귀하의 요청 / 문제에 대한 해결책을 IT 서비스 카탈로그에서 확인하십시오. 해결책을 찾을 수없는 경우 아래 1을 눌러 상담원과 연락하십시오."}
                     }
-                },               
+                },
                 Keywords = new List<GlobalPhrase>{
                         new GlobalPhrase {
                              Id="1",
@@ -539,16 +540,16 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="japanese", Text="他のすべて"},
                            new LocalPhrase {LanguageCode="korean", Text="그 외 모든 것들"}
                     }
-                },                
-                DisclaimerText = null,               
-                FooterText = null,               
+                },
+                DisclaimerText = null,
+                FooterText = null,
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,               
-                DisplayHoursOfOperation = false,                
+                DisableGoBackOption = true,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -585,9 +586,9 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="japanese", Text="エージェントの接続を待ってください。"},
                            new LocalPhrase {LanguageCode="korean", Text="상담원 연결을 기다려주십시오.   "}
                     }
-                },               
-                DisclaimerText = null,                
-                FooterText = null,                
+                },
+                DisclaimerText = null,
+                FooterText = null,
                 Keywords = new List<GlobalPhrase>{
                         new GlobalPhrase {
                              Id="1",
@@ -608,7 +609,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="japanese", Text="エージェントとチャット"},
                            new LocalPhrase {LanguageCode="korean", Text="상담원과 채팅"}
                     }
-                },               
+                },
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = new QueueDto
@@ -645,8 +646,8 @@ namespace Bot.Test
                 }
                 },
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = false,             
-                DisplayHoursOfOperation = false,               
+                DisableGoBackOption = false,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = true,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -683,9 +684,9 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="상담원 연결을 기다려주십시오.   "}
                     }
                 },
-                
-                DisclaimerText = null,               
-                FooterText = null,            
+
+                DisclaimerText = null,
+                FooterText = null,
                 Keywords = new List<GlobalPhrase>{
                         new GlobalPhrase {
                              Id="1",
@@ -706,7 +707,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="japanese", Text="エージェントとチャット"},
                            new LocalPhrase {LanguageCode="korean", Text="상담원과 채팅"}
                     }
-                },             
+                },
                 LanguageOptions = null,
                 LanguageAltText = null,
                 Queue = new QueueDto
@@ -743,8 +744,8 @@ namespace Bot.Test
                 }
                 },
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = false,               
-                DisplayHoursOfOperation = false,                
+                DisableGoBackOption = false,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = true,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -787,7 +788,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="번호를 입력하여 문제를 가장 잘 설명하는 카테고리를 선택하십시오."}
                     }
                 },
-               
+
                 DisclaimerText = new GlobalPhrase
                 {
                     Id = "",
@@ -800,7 +801,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="이 대화는 품질 보증 목적으로 기록 될 수 있습니다."}
                     }
                 },
-               
+
                 FooterText = new GlobalPhrase
                 {
                     Id = "",
@@ -814,15 +815,15 @@ namespace Bot.Test
                     }
                 },
 
-               
+
                 Keywords = new List<GlobalPhrase>(),
-                OptionText = new GlobalPhrase(),                
+                OptionText = new GlobalPhrase(),
                 LanguageAltText = new List<string>(),
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = false,                
-                DisplayHoursOfOperation = false,               
+                DisableGoBackOption = false,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -907,12 +908,12 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="Service Desk에 오신 것을 환영합니다!"}
                     }
                 },
-               
-                DisclaimerText = null,               
-                FooterText = null,                
+
+                DisclaimerText = null,
+                FooterText = null,
                 Keywords = new List<GlobalPhrase>(),
                 OptionText = new GlobalPhrase(),
-                
+
                 LanguageOptions = new List<LanguageOption> {
                      new LanguageOption {Language=english, NodeId=11001 },
                      new LanguageOption {Language=cantonese,NodeId=11001 },
@@ -924,8 +925,8 @@ namespace Bot.Test
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = true,
-                DisableGoBackOption = false,               
-                DisplayHoursOfOperation = false,                
+                DisableGoBackOption = false,
+                DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
@@ -933,6 +934,84 @@ namespace Bot.Test
                 CweCommand = ""
             };
             return welcome;
+        }
+
+
+        public static SystemTextSetting getSystemSetting()
+        {
+            return new SystemTextSetting
+            {
+                ChosenText = new TextSetting
+                {
+                    Content =
+                     new GlobalPhrase
+                     {
+                         Id = "",
+                         Phrases = new List<LocalPhrase> {
+                              new LocalPhrase {  LanguageCode="en-us",
+                                  Text = "You have chosen {0}." },
+                               new LocalPhrase {  LanguageCode="cantonese",Text = "你选择了{0}." },
+                               new LocalPhrase {LanguageCode="mandarin",Text="你选择了{0}."},
+                               new LocalPhrase {LanguageCode="japanese", Text="あなたが選んだ{0}"},
+                               new LocalPhrase {LanguageCode="korean", Text="너는 선택했다{0}."}
+                        }
+                     },
+                    DisplayName = "Chosen Text"
+                },
+                GoBackText = new TextSetting
+                {
+                    Content =
+                     new GlobalPhrase
+                     {
+                         Id = "",
+                         Phrases = new List<LocalPhrase> {
+                              new LocalPhrase {  LanguageCode="en-us",
+                                  Text = "Go back to the previous menu." },
+                               new LocalPhrase {  LanguageCode="mandarin",Text = "回到上一个菜单." },
+                               new LocalPhrase {LanguageCode="cantonese",Text="回到上一個菜單."},
+                               new LocalPhrase {LanguageCode="japanese", Text="前のメニューに戻る"},
+                               new LocalPhrase {LanguageCode="korean", Text="이전 메뉴로 돌아 가기"}
+                        }
+                     },
+                    DisplayName = "GoBack Text"
+                },
+                LanguageSelectionText = new TextSetting
+                {
+                    Content =
+                     new GlobalPhrase
+                     {
+                         Id = "",
+                         Phrases = new List<LocalPhrase> {
+                              new LocalPhrase {  LanguageCode="en-us",
+                                  Text = "Please select a language." },
+                               new LocalPhrase {  LanguageCode="cantonese",Text = "請選擇一種語言." },
+                               new LocalPhrase {LanguageCode="mandarin",Text="请选择一种语言."},
+                               new LocalPhrase {LanguageCode="japanese", Text="言語を選択してください"},
+                               new LocalPhrase {LanguageCode="korean", Text="언어를 선택하십시오."}
+                        }
+                     },
+                    DisplayName = "Language Selection Text"
+                },
+                SelectionText = new TextSetting
+                {
+                    Content =
+                     new GlobalPhrase
+                     {
+                         Id = "",
+                         Phrases = new List<LocalPhrase> {
+                              new LocalPhrase {  LanguageCode="en-us",
+                                  Text = "Please select a option." },
+                               new LocalPhrase {  LanguageCode="mandarin",Text = "请选择一个选项." },
+                               new LocalPhrase {LanguageCode="cantonese",Text="請選擇一種选项."},
+                               new LocalPhrase {LanguageCode="japanese", Text="オプションを選択してください"},
+                               new LocalPhrase {LanguageCode="korean", Text="옵션을 선택하십시오."}
+                        }
+                     },
+                    DisplayName = " Selection Text"
+                },
+                PreviousMenuLevelCharacter = "#"
+
+            };
         }
 
         public static string ToJson()

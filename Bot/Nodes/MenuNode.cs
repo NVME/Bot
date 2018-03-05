@@ -18,7 +18,7 @@ namespace Bot.Core
         public GlobalPhrase HeaderText { get; set; }
         public GlobalPhrase DisclaimerText { get; set; }
         public GlobalPhrase FooterText { get; set; }
-        public List<Node> Nodes { get; set; }       
+        public List<Node> Nodes { get; set; }
         public bool DisableGoBackOption { get; set; }
         public bool HideMenu { get; set; }
         public bool HideMenuNumbers { get; set; }
@@ -27,6 +27,23 @@ namespace Bot.Core
         public override string GetHtmlText(SystemTextSetting settings)
         {
             var html = new XElement("div",
+                     !TextFormat.DisplayChosenText ?//if display chosen text is false, display < foo />
+                       new XElement("foo") :
+                       new XElement("div",  // display chose text ,Ex. "You have chosen Password Reset."
+                           new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
+                                     new XElement("span",
+                                       string.Format(
+                                              settings.ChosenText.Content.Phrases
+                                                     .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                             ,
+                                             OptionDisplayText.Phrases
+                                                     .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                                     )
+                                         )
+                           ),
+                           new XElement("br"),
+                           new XElement("br")
+                      ),
                       HeaderText == null || HeaderText.Phrases.Count == 0 ?  // Header section
                      new XElement("foo") :// if header is empty, display <foo/>
                      new XElement("div",
@@ -49,21 +66,6 @@ namespace Bot.Core
                            new XElement("br"),
                            new XElement("br")
                        ),
-                       !TextFormat.DisplayChosenText ?//if display chosen text is false, display < foo />
-                       new XElement("foo") :
-                       new XElement("div",  // display chose text ,Ex. "You have chosen Password Reset."
-                           new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
-                                     new XElement("span",
-                                        settings.ChosenText.Content.Phrases
-                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
-                                         + " " +
-                                         OptionDisplayText.Phrases
-                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
-                                         )
-                           ),
-                           new XElement("br"),
-                           new XElement("br")
-                      ),
                       !TextFormat.DisplaySelectionText ?//if display selection text is false, display < foo />
                        new XElement("foo") :
                        new XElement("div",
@@ -90,18 +92,20 @@ namespace Bot.Core
                                                   ),
                                           new XElement("br")
                                         )),
+                             !DisableGoBackOption ?//if display go back text is false, display < foo />
+                                 new XElement("foo") :
+                                 new XElement("div",
+                                       new XElement("span",
+                                                         new XText(settings.PreviousMenuLevelCharacter + ".")
+                                                         ),
+                                       new XElement("span", new XAttribute("style", TextFormat.GoBackTextFormat),
+                                                 new XElement("span",
+                                                   settings.GoBackText.Content.Phrases
+                                                             .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                                     )
+                                            ),
                               new XElement("br")
                              ),
-                       !DisableGoBackOption ?//if display go back text is false, display < foo />
-                       new XElement("foo") :
-                       new XElement("div",
-                           new XElement("span", new XAttribute("style", TextFormat.GoBackTextFormat),
-                                     new XElement("span",
-                                       settings.GoBackText.Content.Phrases
-                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
-                                         )
-                           ),
-                           new XElement("br"),
                            new XElement("br")
                       ),
                      FooterText == null || FooterText.Phrases.Count == 0 ?// Footer section
@@ -118,12 +122,46 @@ namespace Bot.Core
             return html.ToString();
         }
 
-        public override InteractionResult Handle(string userInput)
+        public override string GetPlainText(SystemTextSetting settings)
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            if (TextFormat.DisplayChosenText)
+                sb.AppendLine(
+                   string.Format(
+                                        settings.ChosenText.Content.Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                       ,
+                                        OptionDisplayText.Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                  )
+                    ).AppendLine();
+
+            if (HeaderText != null && HeaderText.Phrases.Count > 0)
+                sb.AppendLine(HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                    .AppendLine();
+            if (DisclaimerText != null && DisclaimerText.Phrases.Count > 0)
+                sb.AppendLine(DisclaimerText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                    .AppendLine();
+            if (TextFormat.DisplaySelectionText)
+                sb.AppendLine(settings.SelectionText.Content.Phrases
+                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                     .AppendLine();
+            if (!HideMenu && Nodes != null)
+            {
+                foreach (var o in Nodes.Select((node, index) => new { node, index }))
+                    sb.AppendLine((o.index + 1).ToString() + "." + o.node.GetOptionDisplayText(this.LanguageCode));
+                if (!DisableGoBackOption)
+                    sb.AppendLine(settings.PreviousMenuLevelCharacter + "." + settings.GoBackText.Content.Phrases
+                                                       .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
+                sb.AppendLine();
+            }
+            if (FooterText != null && FooterText.Phrases.Count > 0)
+                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
+
+            return sb.ToString();
         }
 
-        public override string GetPlainText(SystemTextSetting settings)
+        public override InteractionResult Handle(string userInput)
         {
             throw new NotImplementedException();
         }

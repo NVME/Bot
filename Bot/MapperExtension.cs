@@ -77,12 +77,17 @@ namespace Bot.Core
                     AdditionalOptions = dto.AdditionalOptions,
                     CweCommand = dto.CweCommand
                 });
+
+            ///
+            ///TBD: QUEUE Mapping with QueueDto
+            ///
             var handoffNodes = list.Where(n => (NodeType)n.TypeId == NodeType.HandoffNode)
                 .Select(dto => new HandoffNode
                 {
                     Id = dto.Id,
                     ParentId = dto.ParentId,
                     Parent = null,
+                    Queue=null,///TBD: QUEUE Mapping with QueueDto
                     TextFormat = dto.TextFormat,
                     HeaderText = dto.HeaderText,
                     Keywords = dto.Keywords,
