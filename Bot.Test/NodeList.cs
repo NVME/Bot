@@ -914,12 +914,12 @@ namespace Bot.Test
                 Keywords = new List<GlobalPhrase>(),
                 OptionText = new GlobalPhrase(),
 
-                LanguageOptions = new List<LanguageOption> {
-                     new LanguageOption {Language=english, NodeId=11001 },
-                     new LanguageOption {Language=cantonese,NodeId=11001 },
-                     new LanguageOption {Language=mandarin,NodeId=11001 },
-                     new LanguageOption {Language=japanese,NodeId=11001 },
-                     new LanguageOption {Language=korean, NodeId=11001 }
+                LanguageOptions = new List<LanguageOptionDto> {
+                     new LanguageOptionDto {Language=english, TargetNodeId=11001 },
+                     new LanguageOptionDto {Language=cantonese,TargetNodeId=11001 },
+                     new LanguageOptionDto {Language=mandarin,TargetNodeId=11001 },
+                     new LanguageOptionDto {Language=japanese,TargetNodeId=11001 },
+                     new LanguageOptionDto {Language=korean, TargetNodeId=11001 }
                     },
                 LanguageAltText = new List<string> { "en", "can", "mad", "jpn", "kor" },
                 Queue = null,

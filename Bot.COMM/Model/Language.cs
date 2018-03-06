@@ -22,12 +22,11 @@ namespace Bot.COMM
         public List<string> keywords { get; set; }
     }
     [DataContract]
-    public class LanguageOption
+    public class LanguageOptionDto
     {
         [DataMember]
         public Language Language { get; set; }
         [DataMember]
-        public int NodeId { get; set; }
-       }
+        public int TargetNodeId { get; set; }      
     }
 }

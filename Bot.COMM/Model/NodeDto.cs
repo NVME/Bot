@@ -63,7 +63,7 @@ namespace Bot.COMM
         [DataMember]
         public bool DisplayHoursOfOperation { get; set; }//Determines if the queue's hours of operation are added to the OptionText. Default is false.
         [DataMember]
-        public List<LanguageOption> LanguageOptions { get; set; }//List of languages. Might be taken from bot setup. Might be the place to specify the bot's languages.
+        public List<LanguageOptionDto> LanguageOptions { get; set; }//List of languages. Might be taken from bot setup. Might be the place to specify the bot's languages.
         [DataMember]
         public List<string> LanguageAltText { get; set; }//The label for each langauge in the menu if the language name is not desired.
         [DataMember]

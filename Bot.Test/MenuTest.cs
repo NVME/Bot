@@ -51,23 +51,9 @@ namespace Bot.Test
         [TestMethod]
         public void TestLanguageNode()
         {
-            var dto = NodeList.GenerateLangageNodeDto();
-            var langNode = new LanguageNode
-            {
-                Id = dto.Id,
-                ParentId = dto.ParentId,
-                Parent = null,
-                TextFormat = dto.TextFormat,
-                HeaderText = dto.HeaderText,
-                FooterText = dto.FooterText,
-                DisclaimerText = dto.DisclaimerText,
-                Keywords = dto.Keywords,
-                LanguageOptions = dto.LanguageOptions,
-                LanguagesAltText = dto.LanguageAltText,
-                UseEnglishLanguageName = dto.UseEnglishLanguageName,
-                AdditionalOptions = dto.AdditionalOptions,
-                CweCommand = dto.CweCommand
-            };
+            
+            var tree = NodeList.GetList().ToNode();
+            var langNode = tree.Where<Node>(n => n.Id == 10001).FirstOrDefault();
             var plaintext = langNode.GetPlainText(NodeList.getSystemSetting());
         }
 

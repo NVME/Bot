@@ -105,4 +105,12 @@ namespace Bot.Core
         }
 
     }
+
+
+    public class LanguageOption
+    {       
+        public Language Language { get; set; }       
+        public int TargetNodeId { get; set; }
+        public Node TargetNode { get; set; }
+    }
 }

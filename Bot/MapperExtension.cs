@@ -35,8 +35,9 @@ namespace Bot.Core
                         FooterText = dto.FooterText,
                         DisclaimerText = dto.DisclaimerText,
                         Keywords = dto.Keywords,
-                        LanguageOptions = dto.LanguageOptions,
-                        LanguagesAltText = dto.LanguageAltText,
+                        LanguageOptions = dto.LanguageOptions.Select(
+                            op=> new LanguageOption { Language = op.Language, TargetNodeId = op.TargetNodeId }).ToList(),
+                       // LanguagesAltText = dto.LanguageAltText,
                         UseEnglishLanguageName = dto.UseEnglishLanguageName,
                         AdditionalOptions = dto.AdditionalOptions,
                         CweCommand = dto.CweCommand,
@@ -140,9 +141,16 @@ namespace Bot.Core
                 }
                 if (node is LanguageNode)
                 {
-                    node.IsLanguageNode = true;
+                    var langNode = node as LanguageNode;
+                    langNode.IsLanguageNode = true;
                     //update target node
-
+                   foreach( var option in langNode.LanguageOptions)
+                        option.TargetNode = nodes.Where(n => n.Id == option.TargetNodeId).FirstOrDefault();
+                    treenodes.Add(langNode);
+                }
+                if (node is HandoffNode)
+                {
+                    // update queue 
                 }
                 if (node.Id == node.ParentId) node.IsRootNode = true;               
                 if (!treenodes.Any(tn => tn.Id == node.Id)) treenodes.Add(node);
@@ -151,6 +159,8 @@ namespace Bot.Core
             // }
             return treenodes;
         }
+
+       
 
         public static Queue ToQueue(this QueueDto dto)
         {
