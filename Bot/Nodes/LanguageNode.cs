@@ -12,15 +12,13 @@ namespace Bot.Core
     public class LanguageNode : Node, INode
     {
         public GlobalPhrase HeaderText { get; set; }
-        public GlobalPhrase DisclaimerText { get; set; }
+        public GlobalPhrase DisclaimerText { get; set; }// can be override by GlobalDisclaimer, TBD: Deceide how /when to override , on configure manager side or bot .
         public GlobalPhrase FooterText { get; set; }
-        public List<LanguageOption> LanguageOptions { get; set; }
-        public List<string> LanguagesAltText { get; set; }
+        public List<LanguageOption> LanguageOptions { get; set; }     
         public bool UseEnglishLanguageName { get; set; }
         public LanguageNode() : base()
         {
-            LanguageOptions = new List<LanguageOption>();
-            LanguagesAltText = new List<string>();
+            LanguageOptions = new List<LanguageOption>();           
         }
 
         public override string GetHtmlText(SystemTextSetting settings)

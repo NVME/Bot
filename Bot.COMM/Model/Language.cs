@@ -28,5 +28,6 @@ namespace Bot.COMM
         public Language Language { get; set; }
         [DataMember]
         public int NodeId { get; set; }
+       }
     }
 }

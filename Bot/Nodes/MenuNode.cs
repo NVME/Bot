@@ -16,7 +16,7 @@ namespace Bot.Core
             Nodes = new List<Node>();
         }
         public GlobalPhrase HeaderText { get; set; }
-        public GlobalPhrase DisclaimerText { get; set; }
+        public GlobalPhrase DisclaimerText { get; set; }//// can be override by GlobalDisclaimer, TBD: Deceide how /when to override , on configure manager side or bot .
         public GlobalPhrase FooterText { get; set; }
         public List<Node> Nodes { get; set; }
         public bool DisableGoBackOption { get; set; }
@@ -125,6 +125,14 @@ namespace Bot.Core
         public override string GetPlainText(SystemTextSetting settings)
         {
             StringBuilder sb = new StringBuilder();
+          
+
+            if (HeaderText != null && HeaderText.Phrases.Count > 0)
+                sb.AppendLine(HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                    .AppendLine();
+            if (DisclaimerText != null && DisclaimerText.Phrases.Count > 0)
+                sb.AppendLine(DisclaimerText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                    .AppendLine();
             if (TextFormat.DisplayChosenText)
                 sb.AppendLine(
                    string.Format(
@@ -135,13 +143,6 @@ namespace Bot.Core
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                   )
                     ).AppendLine();
-
-            if (HeaderText != null && HeaderText.Phrases.Count > 0)
-                sb.AppendLine(HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
-                    .AppendLine();
-            if (DisclaimerText != null && DisclaimerText.Phrases.Count > 0)
-                sb.AppendLine(DisclaimerText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
-                    .AppendLine();
             if (TextFormat.DisplaySelectionText)
                 sb.AppendLine(settings.SelectionText.Content.Phrases
                                                  .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())

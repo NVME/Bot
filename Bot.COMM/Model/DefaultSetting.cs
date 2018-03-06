@@ -24,6 +24,10 @@ namespace Bot.COMM
         public SystemTextSetting SystemTextSettings { get; set; }//Default system messages with custom text.
         [DataMember]
         public AgentSystemTextSetting AgentSystemTextSettings { get; set; }//System messages from the service desk with custom text.
+        [DataMember]
+        public string GlobalDisclaimer { get; set; }//A disclaimer message that will be displayed on all nodes on all bots for all customers (that support a disclaimer). Can override at the customer, bot and node level.
+        [DataMember]
+        public string GlobalDisclaimerLocation { get; set; }//Determines where to show the global disclaimer: Root (first node), Language Root (first node after language selection), Both (Root and Language Root)
 
     }
 

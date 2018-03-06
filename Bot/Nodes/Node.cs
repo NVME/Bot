@@ -22,10 +22,14 @@ namespace Bot.Core
         public string LanguageCode { get; set; }
         public string CweCommand { get; set; }
         public string AdditionalOptions { get; set; }
+        public bool IsRootNode { get; set; }
+        public bool IsLanguageNode { get; set; }
         protected Node()
         {
             LanguageCode = "en-us";// default language, will be reset in language node and pass to next node;
             Keywords = new List<GlobalPhrase>();
+            IsRootNode = false;
+            IsLanguageNode = false;           
         }
         public virtual string GetOptionDisplayText(string languageCode)
         {

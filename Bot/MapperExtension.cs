@@ -39,7 +39,8 @@ namespace Bot.Core
                         LanguagesAltText = dto.LanguageAltText,
                         UseEnglishLanguageName = dto.UseEnglishLanguageName,
                         AdditionalOptions = dto.AdditionalOptions,
-                        CweCommand = dto.CweCommand
+                        CweCommand = dto.CweCommand,
+                        IsLanguageNode = true
                     });
             var menuNodes = list.Where(n => (NodeType)n.TypeId == NodeType.MenuNode)
                 .Select(
@@ -72,8 +73,7 @@ namespace Bot.Core
                     HeaderText = dto.HeaderText,
                     Keywords = dto.Keywords,
                     OptionDisplayText = dto.OptionText,
-                    DisableGoBackOption = dto.DisableGoBackOption,
-                    DisplayConnectionText = dto.DisplayConnectionText,
+                    DisableGoBackOption = dto.DisableGoBackOption,                   
                     AdditionalOptions = dto.AdditionalOptions,
                     CweCommand = dto.CweCommand
                 });
@@ -93,6 +93,8 @@ namespace Bot.Core
                     Keywords = dto.Keywords,
                     OptionDisplayText = dto.OptionText,
                     DisclaimerText = dto.DisclaimerText,
+                    //DisableGoBackOption = dto.DisableGoBackOption,
+                    DisplayConnectionText = dto.DisplayConnectionText,
                     DisplayHoursOfOperation = dto.DisplayHoursOfOperation,
                     ShowConfirmation = dto.ShowConfirmation,
                     AdditionalOptions = dto.AdditionalOptions,
@@ -105,7 +107,7 @@ namespace Bot.Core
                    ParentId = dto.ParentId,
                    Parent = null,
                    TextFormat = dto.TextFormat,
-                   NodeLinkNodeId = dto.NodeLinkNodeId,
+                   TargetNode = dto.NodeLinkNodeId,
                    Goto = null,
                    Keywords = dto.Keywords,
                    OptionDisplayText = dto.OptionText,
@@ -115,7 +117,7 @@ namespace Bot.Core
 
             foreach (var node in nodelinks)
             {
-                int gotoNodeId = node.NodeLinkNodeId;
+                int gotoNodeId = node.TargetNode;
                 if (node.Goto == null) node.Goto = languageNodes.FirstOrDefault(n => n.Id ==gotoNodeId);
                 if (node.Goto== null) node.Goto = menuNodes.FirstOrDefault(n => n.Id == gotoNodeId);
                 if (node.Goto == null) node.Goto = informationalNodes.FirstOrDefault(n => n.Id == gotoNodeId);
@@ -136,7 +138,13 @@ namespace Bot.Core
                     menuNode.Nodes.AddRange(nodes.Where(n => n.ParentId == menuNode.Id && n.Id != n.ParentId));
                     treenodes.Add(menuNode);
                 }
-               
+                if (node is LanguageNode)
+                {
+                    node.IsLanguageNode = true;
+                    //update target node
+
+                }
+                if (node.Id == node.ParentId) node.IsRootNode = true;               
                 if (!treenodes.Any(tn => tn.Id == node.Id)) treenodes.Add(node);
             }
             nodes = null;

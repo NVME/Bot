@@ -11,7 +11,7 @@ namespace Bot.Core
     public class NodeLink : Node, INode
     {
         public NodeLink() : base() { }
-        public int NodeLinkNodeId { get; set; }
+        public int TargetNode { get; set; }
         public Node Goto { get; set; }
        
 
