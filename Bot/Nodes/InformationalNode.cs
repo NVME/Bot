@@ -10,6 +10,8 @@ namespace Bot.Core
     public class InformationalNode : Node, INode
     {
         public GlobalPhrase HeaderText { get; set; }
+        public GlobalPhrase DisclaimerText { get; set; }// can be override by GlobalDisclaimer, TBD: Deceide how /when to override , on configure manager side or bot .
+        public GlobalPhrase InformationalText { get; set;}
         public GlobalPhrase FooterText { get; set; }
         public bool DisableGoBackOption { get; set; }
         public InformationalNode() : base() { }
@@ -31,6 +33,17 @@ namespace Bot.Core
                           new XElement("br"),
                           new XElement("br")
                       ),
+                     DisclaimerText == null || DisclaimerText.Phrases.Count == 0 ?  // Disclaimer section
+                     new XElement("foo") :  //if Disclaimer is empty, display < foo />
+                     new XElement("div",
+                         new XElement("span", new XAttribute("style", TextFormat.DisclaimerTextFormat),
+                            new XElement("span",
+                                DisclaimerText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                )
+                          ),
+                          new XElement("br"),
+                          new XElement("br")
+                      ),
                       !TextFormat.DisplayChosenText ?//if display chosen text is false, display < foo />
                       new XElement("foo") :
                       new XElement("div",  // display chose text ,Ex. "You have chosen Password Reset."
@@ -48,6 +61,18 @@ namespace Bot.Core
                           new XElement("br"),
                           new XElement("br")
                      ),
+                    InformationalText == null || InformationalText.Phrases.Count == 0 ?  // Header section
+                    new XElement("foo") :// if header is empty, display <foo/>
+                       new XElement("div",
+                        new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
+                          new XElement("span",
+                            InformationalText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                            )
+                         ),
+                         new XElement("br"),
+                         new XElement("br")
+                      ),
+
                       DisableGoBackOption ?//if display go back text is disabled, display < foo />
                       new XElement("foo") :
                       new XElement("div",
@@ -86,6 +111,9 @@ namespace Bot.Core
             if (HeaderText != null && HeaderText.Phrases.Count > 0)
                 sb.AppendLine(HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
                     .AppendLine();
+            if (DisclaimerText != null && DisclaimerText.Phrases.Count > 0)
+                sb.AppendLine(DisclaimerText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
+                    .AppendLine();
             if (TextFormat.DisplayChosenText)
                 sb.AppendLine(
                      string.Format(
@@ -96,6 +124,8 @@ namespace Bot.Core
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                   )
                     ).AppendLine();
+            if(InformationalText!=null && InformationalText.Phrases.Count > 0)
+                sb.AppendLine(InformationalText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine();
             if (!DisableGoBackOption)
                 sb.AppendLine(settings.PreviousMenuLevelCharacter + "." + settings.GoBackText.Content.Phrases
                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine(); ;

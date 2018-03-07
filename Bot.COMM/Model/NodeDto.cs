@@ -36,6 +36,9 @@ namespace Bot.COMM
         public List<GlobalPhrase> Keywords { get; set; }//Keywords that will select this node from a menu. (optional)
         [DataMember]
         public GlobalPhrase OptionText { get; set; }//The text displayed in a menu containing this node.
+
+        [DataMember]
+        public GlobalPhrase InformationalText { get; set; }
         //[DataMember]
         //public string OptionTextFormat { get; set; }//CSS formatting string for the text. (optional)
         //[DataMember]
@@ -64,8 +67,7 @@ namespace Bot.COMM
         public bool DisplayHoursOfOperation { get; set; }//Determines if the queue's hours of operation are added to the OptionText. Default is false.
         [DataMember]
         public List<LanguageOptionDto> LanguageOptions { get; set; }//List of languages. Might be taken from bot setup. Might be the place to specify the bot's languages.
-        [DataMember]
-        public List<string> LanguageAltText { get; set; }//The label for each langauge in the menu if the language name is not desired.
+        
         [DataMember]
         public bool UseEnglishLanguageName { get; set; }//Displays the English name for each language in the menu instead of the localized name.
         [DataMember]
@@ -81,8 +83,7 @@ namespace Bot.COMM
            // DisclaimerTextFormat = "";
             FooterText = null;
            // FooterTextFormat = "";
-            LanguageOptions = null;
-            LanguageAltText = null;
+            LanguageOptions = null;           
             Queue = null;
             QueueName = null;
             UseEnglishLanguageName = false;

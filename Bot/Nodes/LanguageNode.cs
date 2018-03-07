@@ -56,7 +56,10 @@ namespace Bot.Core
                                                          new XText((i + 1).ToString() + ".")
                                                     ),
                                        new XElement("span", new XAttribute("style", TextFormat.MenuOptionTextFormat),
+                                                         string.IsNullOrEmpty(l.LanguageAltText)?
                                                          new XElement("span", UseEnglishLanguageName ? l.Language.EnglishName : l.Language.LocalName)
+                                                         :
+                                                         new XElement("span", l.LanguageAltText)
                                                         )
                                                ,
                                      new XElement("br")
@@ -90,7 +93,14 @@ namespace Bot.Core
             if (LanguageOptions != null)
             {
                 foreach (var node in LanguageOptions.Select((l, i) => new { l, i }))
-                    sb.AppendLine((node.i + 1).ToString() + "." + (UseEnglishLanguageName ? node.l.Language.EnglishName : node.l.Language.LocalName));               
+                    sb.AppendLine(
+                        (node.i + 1).ToString() + "." + (
+                        string.IsNullOrEmpty(node.l.LanguageAltText) ? 
+                        (UseEnglishLanguageName ? node.l.Language.EnglishName : node.l.Language.LocalName)
+                        :
+                        node.l.LanguageAltText
+                        )
+                     );               
                 sb.AppendLine();
             }
             if (FooterText != null && FooterText.Phrases.Count > 0)
@@ -112,5 +122,7 @@ namespace Bot.Core
         public Language Language { get; set; }       
         public int TargetNodeId { get; set; }
         public Node TargetNode { get; set; }
+        public string LanguageAltText { get; set; }
+        public List<string> Keywords { get; set; }
     }
 }

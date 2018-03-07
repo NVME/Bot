@@ -40,6 +40,17 @@ namespace Bot.Test
                 {
                     Id = "",
                     Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",Text = "Password Reset" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "重設密碼" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="重设密码"},
+                           new LocalPhrase {LanguageCode="japanese", Text="パスワードのリセット"},
+                           new LocalPhrase {LanguageCode="korean", Text="비밀번호 초기화"}
+                    }
+                },
+                InformationalText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
                           new LocalPhrase {  LanguageCode="en-us",
                               Text = "Due to security requirements, password resets are not allowed throught chat.For JCI Global ID password resets, please look first at the self-service guid available at the following link:Password Reset Tool Guids, If you need further assistance,please contact the service desk via phone." },
                            new LocalPhrase {  LanguageCode="cantonese",
@@ -94,8 +105,7 @@ namespace Bot.Test
 
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,               
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -126,7 +136,18 @@ namespace Bot.Test
                     DisplayChosenText = true,
                     DisplaySelectionText = false
                 },
-                HeaderText =
+                HeaderText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",Text = "Software installation" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "軟件安裝" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="软件安装"},
+                           new LocalPhrase {LanguageCode="japanese", Text="ソフトウェアのインストール"},
+                           new LocalPhrase {LanguageCode="korean", Text="소프트웨어 설치"}
+                    }
+                },
+                InformationalText =
                 new GlobalPhrase
                 {
                     Id = "",
@@ -181,12 +202,11 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,              
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
-                DisableGoBackOption = true,
+                DisableGoBackOption = false,
                 DisplayHoursOfOperation = false,
                 ShowConfirmation = false,
                 HideMenu = false,
@@ -218,6 +238,17 @@ namespace Bot.Test
                 {
                     Id = "",
                     Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",Text = "Status Check on Existing Ticket" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "現有票據的狀態檢查" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="现有票据的状态检查"},
+                           new LocalPhrase {LanguageCode="japanese", Text="既存チケットのステータスチェック"},
+                           new LocalPhrase {LanguageCode="korean", Text="기존 티켓의 상태 확인"}
+                    }
+                },
+                InformationalText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
                           new LocalPhrase {  LanguageCode="en-us",
                               Text = "Before contacting the Service Desk, please check your ticket status on the IT Service Catalog at this link :<link></link>.If this doese not resolve yoru query, please go back to main menu and use the option: All Other Support." },
                            new LocalPhrase {  LanguageCode="cantonese",
@@ -230,7 +261,6 @@ namespace Bot.Test
                                Text ="서비스 데스크에 연락하기 전에 IT 서비스 카탈로그의 <link> </ link> 링크에서 티켓 상태를 확인하십시오. 이렇게하면 yoru 쿼리가 해결되지 않고 기본 메뉴로 돌아가서 다음 옵션을 사용하십시오. ."}
                     }
                 },
-
                 Keywords = new List<GlobalPhrase>{
                         new GlobalPhrase {
                              Id="1",
@@ -257,8 +287,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,               
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -290,6 +319,17 @@ namespace Bot.Test
                     DisplaySelectionText = false
                 },
                 HeaderText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",Text = "Support for Outlook and Mobility  " },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "支持Outlook和移動" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="支持Outlook和移动"},
+                           new LocalPhrase {LanguageCode="japanese", Text="Outlookとモビリティのサポート"},
+                           new LocalPhrase {LanguageCode="korean", Text="Outlook 및 모바일 지원"}
+                    }
+                },
+                InformationalText = new GlobalPhrase
                 {
                     Id = "",
                     Phrases = new List<LocalPhrase> {
@@ -330,8 +370,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,               
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -363,6 +402,17 @@ namespace Bot.Test
                     DisplaySelectionText = false
                 },
                 HeaderText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",Text = "SAP Support" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "SAP支持" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="SAP支持"},
+                           new LocalPhrase {LanguageCode="japanese", Text="SAPサポート"},
+                           new LocalPhrase {LanguageCode="korean", Text="SAP 지원"}
+                    }
+                },
+                InformationalText = new GlobalPhrase
                 {
                     Id = "",
                     Phrases = new List<LocalPhrase> {
@@ -401,8 +451,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,               
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -434,6 +483,17 @@ namespace Bot.Test
                     DisplaySelectionText = false
                 },
                 HeaderText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",Text = "AMS Only-BE SSNA Support" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "AMS Only-BE SSNA支持" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="AMS Only-BE SSNA支持"},
+                           new LocalPhrase {LanguageCode="japanese", Text="AMS Only-BE SSNAサポート"},
+                           new LocalPhrase {LanguageCode="korean", Text="AMS Only-BE SSNA 지원"}
+                    }
+                },
+                InformationalText = new GlobalPhrase
                 {
                     Id = "",
                     Phrases = new List<LocalPhrase> {
@@ -472,8 +532,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,              
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -505,6 +564,17 @@ namespace Bot.Test
                     DisplaySelectionText = false
                 },
                 HeaderText = new GlobalPhrase
+                {
+                    Id = "",
+                    Phrases = new List<LocalPhrase> {
+                          new LocalPhrase {  LanguageCode="en-us",Text = "All Other" },
+                           new LocalPhrase {  LanguageCode="cantonese",Text = "所有其他" },
+                           new LocalPhrase {LanguageCode="mandarin",Text="所有其他"},
+                           new LocalPhrase {LanguageCode="japanese", Text="他のすべて"},
+                           new LocalPhrase {LanguageCode="korean", Text="그 외 모든 것들"}
+                    }
+                },
+                InformationalText = new GlobalPhrase
                 {
                     Id = "",
                     Phrases = new List<LocalPhrase> {
@@ -543,8 +613,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,               
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -610,8 +679,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="상담원과 채팅"}
                     }
                 },
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,              
                 Queue = new QueueDto
                 {
                     Id = 101,
@@ -708,8 +776,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="상담원과 채팅"}
                     }
                 },
-                LanguageOptions = null,
-                LanguageAltText = null,
+                LanguageOptions = null,             
                 Queue = new QueueDto
                 {
                     Id = 102,
@@ -817,8 +884,7 @@ namespace Bot.Test
 
 
                 Keywords = new List<GlobalPhrase>(),
-                OptionText = new GlobalPhrase(),
-                LanguageAltText = new List<string>(),
+                OptionText = new GlobalPhrase(),              
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -901,7 +967,7 @@ namespace Bot.Test
                     Id = "",
                     Phrases = new List<LocalPhrase> {
                           new LocalPhrase {  LanguageCode="en-us",
-                              Text = "Welcome to the Service Desk! Please select your language." },
+                              Text = "Welcome to the Service Desk!" },
                            new LocalPhrase {  LanguageCode="cantonese",Text = "歡迎來到服務台！" },
                            new LocalPhrase {LanguageCode="mandarin",Text="欢迎来到服务台！"},
                            new LocalPhrase {LanguageCode="japanese", Text="Service Deskへようこそ！"},
@@ -915,13 +981,12 @@ namespace Bot.Test
                 OptionText = new GlobalPhrase(),
 
                 LanguageOptions = new List<LanguageOptionDto> {
-                     new LanguageOptionDto {Language=english, TargetNodeId=11001 },
+                     new LanguageOptionDto {Language=english, TargetNodeId=11001 , Keywords=new List<string> { "en" }, LanguageAltText="Americas Helpdesk (English)"},
                      new LanguageOptionDto {Language=cantonese,TargetNodeId=11001 },
                      new LanguageOptionDto {Language=mandarin,TargetNodeId=11001 },
                      new LanguageOptionDto {Language=japanese,TargetNodeId=11001 },
                      new LanguageOptionDto {Language=korean, TargetNodeId=11001 }
-                    },
-                LanguageAltText = new List<string> { "en", "can", "mad", "jpn", "kor" },
+                    },              
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = true,
@@ -949,7 +1014,7 @@ namespace Bot.Test
                          Id = "",
                          Phrases = new List<LocalPhrase> {
                               new LocalPhrase {  LanguageCode="en-us",
-                                  Text = "You have chosen {0}." },
+                                  Text = "You have chosen \"{0}\"." },
                                new LocalPhrase {  LanguageCode="cantonese",Text = "你选择了{0}." },
                                new LocalPhrase {LanguageCode="mandarin",Text="你选择了{0}."},
                                new LocalPhrase {LanguageCode="japanese", Text="あなたが選んだ{0}"},

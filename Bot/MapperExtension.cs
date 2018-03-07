@@ -36,8 +36,13 @@ namespace Bot.Core
                         DisclaimerText = dto.DisclaimerText,
                         Keywords = dto.Keywords,
                         LanguageOptions = dto.LanguageOptions.Select(
-                            op=> new LanguageOption { Language = op.Language, TargetNodeId = op.TargetNodeId }).ToList(),
-                       // LanguagesAltText = dto.LanguageAltText,
+                            op => new LanguageOption
+                            {
+                                Language = op.Language,
+                                TargetNodeId = op.TargetNodeId,
+                                Keywords = op.Keywords,
+                                LanguageAltText = op.LanguageAltText
+                            }).ToList(),                        
                         UseEnglishLanguageName = dto.UseEnglishLanguageName,
                         AdditionalOptions = dto.AdditionalOptions,
                         CweCommand = dto.CweCommand,
@@ -73,8 +78,9 @@ namespace Bot.Core
                     TextFormat = dto.TextFormat,
                     HeaderText = dto.HeaderText,
                     Keywords = dto.Keywords,
+                    InformationalText = dto.InformationalText,
                     OptionDisplayText = dto.OptionText,
-                    DisableGoBackOption = dto.DisableGoBackOption,                   
+                    DisableGoBackOption = dto.DisableGoBackOption,
                     AdditionalOptions = dto.AdditionalOptions,
                     CweCommand = dto.CweCommand
                 });
@@ -88,7 +94,7 @@ namespace Bot.Core
                     Id = dto.Id,
                     ParentId = dto.ParentId,
                     Parent = null,
-                    Queue=null,///TBD: QUEUE Mapping with QueueDto
+                    Queue = null,///TBD: QUEUE Mapping with QueueDto
                     TextFormat = dto.TextFormat,
                     HeaderText = dto.HeaderText,
                     Keywords = dto.Keywords,
@@ -119,8 +125,8 @@ namespace Bot.Core
             foreach (var node in nodelinks)
             {
                 int gotoNodeId = node.TargetNode;
-                if (node.Goto == null) node.Goto = languageNodes.FirstOrDefault(n => n.Id ==gotoNodeId);
-                if (node.Goto== null) node.Goto = menuNodes.FirstOrDefault(n => n.Id == gotoNodeId);
+                if (node.Goto == null) node.Goto = languageNodes.FirstOrDefault(n => n.Id == gotoNodeId);
+                if (node.Goto == null) node.Goto = menuNodes.FirstOrDefault(n => n.Id == gotoNodeId);
                 if (node.Goto == null) node.Goto = informationalNodes.FirstOrDefault(n => n.Id == gotoNodeId);
                 if (node.Goto == null) node.Goto = handoffNodes.FirstOrDefault(n => n.Id == gotoNodeId);
             }
@@ -132,7 +138,7 @@ namespace Bot.Core
 
             foreach (var node in nodes)
             {
-                node.Parent = nodes.Find(n => n.Id == node.ParentId);               
+                node.Parent = nodes.Find(n => n.Id == node.ParentId);
                 if (node is MenuNode)
                 {
                     var menuNode = node as MenuNode;
@@ -144,7 +150,7 @@ namespace Bot.Core
                     var langNode = node as LanguageNode;
                     langNode.IsLanguageNode = true;
                     //update target node
-                   foreach( var option in langNode.LanguageOptions)
+                    foreach (var option in langNode.LanguageOptions)
                         option.TargetNode = nodes.Where(n => n.Id == option.TargetNodeId).FirstOrDefault();
                     treenodes.Add(langNode);
                 }
@@ -152,7 +158,7 @@ namespace Bot.Core
                 {
                     // update queue 
                 }
-                if (node.Id == node.ParentId) node.IsRootNode = true;               
+                if (node.Id == node.ParentId) node.IsRootNode = true;
                 if (!treenodes.Any(tn => tn.Id == node.Id)) treenodes.Add(node);
             }
             nodes = null;
@@ -160,7 +166,7 @@ namespace Bot.Core
             return treenodes;
         }
 
-       
+
 
         public static Queue ToQueue(this QueueDto dto)
         {

@@ -27,6 +27,10 @@ namespace Bot.COMM
         [DataMember]
         public Language Language { get; set; }
         [DataMember]
-        public int TargetNodeId { get; set; }      
+        public int TargetNodeId { get; set; }
+        [DataMember]
+        public string LanguageAltText { get; set; }
+        [DataMember]
+        public List<string> Keywords { get; set; }
     }
 }
