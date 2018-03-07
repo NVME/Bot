@@ -19,7 +19,7 @@ namespace Bot.Core
 
        
 
-        public override InteractionResult Handle(string userInput)
+        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }

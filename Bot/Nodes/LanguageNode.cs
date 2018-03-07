@@ -14,11 +14,11 @@ namespace Bot.Core
         public GlobalPhrase HeaderText { get; set; }
         public GlobalPhrase DisclaimerText { get; set; }// can be override by GlobalDisclaimer, TBD: Deceide how /when to override , on configure manager side or bot .
         public GlobalPhrase FooterText { get; set; }
-        public List<LanguageOption> LanguageOptions { get; set; }     
+        public List<LanguageOption> LanguageOptions { get; set; }
         public bool UseEnglishLanguageName { get; set; }
         public LanguageNode() : base()
         {
-            LanguageOptions = new List<LanguageOption>();           
+            LanguageOptions = new List<LanguageOption>();
         }
 
         public override string GetHtmlText(SystemTextSetting settings)
@@ -56,7 +56,7 @@ namespace Bot.Core
                                                          new XText((i + 1).ToString() + ".")
                                                     ),
                                        new XElement("span", new XAttribute("style", TextFormat.MenuOptionTextFormat),
-                                                         string.IsNullOrEmpty(l.LanguageAltText)?
+                                                         string.IsNullOrEmpty(l.LanguageAltText) ?
                                                          new XElement("span", UseEnglishLanguageName ? l.Language.EnglishName : l.Language.LocalName)
                                                          :
                                                          new XElement("span", l.LanguageAltText)
@@ -95,31 +95,41 @@ namespace Bot.Core
                 foreach (var node in LanguageOptions.Select((l, i) => new { l, i }))
                     sb.AppendLine(
                         (node.i + 1).ToString() + "." + (
-                        string.IsNullOrEmpty(node.l.LanguageAltText) ? 
+                        string.IsNullOrEmpty(node.l.LanguageAltText) ?
                         (UseEnglishLanguageName ? node.l.Language.EnglishName : node.l.Language.LocalName)
                         :
                         node.l.LanguageAltText
                         )
-                     );               
+                     );
                 sb.AppendLine();
             }
             if (FooterText != null && FooterText.Phrases.Count > 0)
-                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());            
+                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
 
             return sb.ToString();
         }
 
-        public override InteractionResult Handle(string userInput)
+        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            throw new NotImplementedException();
-        }
+            int index; LanguageOption option = null;
+            if (int.TryParse(userInput, out index))
+                option = this.LanguageOptions.Where((ln, idx) => idx == index).FirstOrDefault();
+            else
+                option = this.LanguageOptions.Where(op => op.Keywords.Contains(userInput)).FirstOrDefault();
 
+            if (option != null && option.TargetNode != null) return new InteractionResult { Next = option.TargetNode, Type = ResultType.Matched };
+            return new InteractionResult
+            {
+                Type = ResultType.Invalid,
+                Message = settings.SelectionError.Content.Phrases.Where(p => p.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+            };
+        }
     }
 
 
     public class LanguageOption
-    {       
-        public Language Language { get; set; }       
+    {
+        public Language Language { get; set; }
         public int TargetNodeId { get; set; }
         public Node TargetNode { get; set; }
         public string LanguageAltText { get; set; }

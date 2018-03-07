@@ -44,7 +44,7 @@ namespace Bot.Core
         }
         public abstract string GetHtmlText(SystemTextSetting settings);
         public abstract string GetPlainText(SystemTextSetting settings);
-        public abstract InteractionResult Handle(string userInput);
+        public abstract InteractionResult Handle(string userInput, SystemTextSetting settings);
 
         // This function converts HTML code to plain text
         // Any step is commented to explain it better
@@ -83,5 +83,14 @@ namespace Bot.Core
     {
         public Node Next { get; set; }
         public string Message { get; set; }
+        public ResultType Type { get; set; }
+    }
+    public enum ResultType
+    {
+        Matched,
+        Invalid,
+        GoBack,
+        JumpTo,
+        HandOff
     }
 }

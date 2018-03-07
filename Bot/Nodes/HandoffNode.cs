@@ -150,7 +150,7 @@ namespace Bot.Core
             return sb.ToString();
         }
 
-        public override InteractionResult Handle(string userInput)
+        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }

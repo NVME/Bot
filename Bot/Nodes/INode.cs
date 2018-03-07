@@ -14,6 +14,6 @@ namespace Bot.Core
         /// </summary>
         /// <param name="sMessage"></param>
         /// <returns></returns>
-        InteractionResult Handle(string sMessage);
+        InteractionResult Handle(string sMessage, SystemTextSetting settings);
     }
 }

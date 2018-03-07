@@ -15,9 +15,9 @@ namespace Bot.Core
         public Node Goto { get; set; }
        
 
-        public override InteractionResult Handle(string userInput)
+        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            return new InteractionResult { Next = Goto };
+            return new InteractionResult { Next = Goto, Type=ResultType.JumpTo };
         }
 
         public override string GetHtmlText(SystemTextSetting settings)

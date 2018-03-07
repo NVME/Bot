@@ -125,7 +125,7 @@ namespace Bot.Core
         public override string GetPlainText(SystemTextSetting settings)
         {
             StringBuilder sb = new StringBuilder();
-          
+
 
             if (HeaderText != null && HeaderText.Phrases.Count > 0)
                 sb.AppendLine(HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
@@ -162,9 +162,30 @@ namespace Bot.Core
             return sb.ToString();
         }
 
-        public override InteractionResult Handle(string userInput)
+        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            throw new NotImplementedException();
+            int index; Node next = null;
+            if (!DisableGoBackOption && userInput.Equals(settings.PreviousMenuLevelCharacter))
+                 return new InteractionResult { Next = this.Parent, Type = ResultType.GoBack };
+            else if (int.TryParse(userInput, out index))
+                next = this.Nodes.Where((n, i) => i == index).FirstOrDefault();
+            else
+                next = this.Nodes.Where(
+                                 n => n.Keywords.Where(
+                                                 key => key.Phrases.Where(
+                                                                           p => p.LanguageCode.Equals(this.LanguageCode)
+                                                                         )
+                                                                   .Select(p => p.Text).Contains(userInput)
+                                                      ).Count() > 0
+                                      ).FirstOrDefault();
+
+            if (next != null)  return new InteractionResult { Next = next, Type = ResultType.Matched };
+            return
+                new InteractionResult
+                {
+                    Type = ResultType.Invalid,
+                    Message = settings.SelectionError.Content.Phrases.Where(p => p.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                };
         }
     }
 
