@@ -42,14 +42,27 @@ namespace Bot.Core
             package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(GetHtmlText(settings))));
             return package;
         }
-        public abstract string GetHtmlText(SystemTextSetting settings);
-        public abstract string GetPlainText(SystemTextSetting settings);
-        public abstract InteractionResult Handle(string userInput, SystemTextSetting settings);
+        protected abstract string GetHtmlText(SystemTextSetting settings);
+        protected abstract string GetPlainText(SystemTextSetting settings);
+        public virtual InteractionResult Handle(string userInput, SystemTextSetting settings)
+        {
+            //TBD: Check by pass agent
+            throw new NotImplementedException();
+        }
+       
+        protected MimePartContentDescription ConvertToMime(string msg)
+        {
+            var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
+            var htm = string.Format("<span style=\"{1} \"><span>{0}</span></span>", msg,this.TextFormat.ErrorTextFormat);
+            package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(msg)));
+            package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(htm)));
+            return package;
+        }
 
         // This function converts HTML code to plain text
         // Any step is commented to explain it better
         // You can change or remove unnecessary parts to suite your needs
-        public string HTMLToText(string HTMLCode)
+        protected string HTMLToText(string HTMLCode)
         {
             // Remove new lines since they are not visible in HTML
             HTMLCode = HTMLCode.Replace("\n", " ");
@@ -82,7 +95,7 @@ namespace Bot.Core
     public class InteractionResult
     {
         public Node Next { get; set; }
-        public string Message { get; set; }
+        public MimePartContentDescription Message { get; set; }
         public ResultType Type { get; set; }
     }
     public enum ResultType

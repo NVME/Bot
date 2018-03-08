@@ -54,8 +54,8 @@ namespace Bot.Test
             
             var tree = NodeList.GetList().ToNode();
             var langNode = tree.Where<Node>(n => n.Id == 10001).FirstOrDefault();
-            var plaintext = langNode.GetPlainText(NodeList.getSystemSetting());
-            var htmltext = langNode.GetHtmlText(NodeList.getSystemSetting());
+            var display = langNode.Display(NodeList.getSystemSetting());
+           
         }
 
         [TestMethod]
@@ -63,8 +63,8 @@ namespace Bot.Test
         {
             var tree = NodeList.GetList().ToNode();
             var menu = tree.Where<Node>(n => n.Id == 11001).FirstOrDefault();           
-            var plaintext = menu.GetPlainText(NodeList.getSystemSetting());
-            var htmltext = menu.GetHtmlText(NodeList.getSystemSetting());
+            var display = menu.Display(NodeList.getSystemSetting());
+           
         }
 
         [TestMethod]
@@ -72,8 +72,8 @@ namespace Bot.Test
         {
             var tree = NodeList.GetList().ToNode();
             var info = tree.Where<Node>(n => n.Id== 11102).FirstOrDefault();
-            var plaintext = info.GetPlainText(NodeList.getSystemSetting());
-            var htmltext = info.GetHtmlText(NodeList.getSystemSetting());
+            var display = info.Display(NodeList.getSystemSetting());
+           
         }
     }
 }

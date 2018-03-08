@@ -24,12 +24,12 @@ namespace Bot.Core
             throw new NotImplementedException();
         }
 
-        public override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }
 
-        public override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }

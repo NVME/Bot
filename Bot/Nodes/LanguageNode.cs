@@ -21,7 +21,7 @@ namespace Bot.Core
             LanguageOptions = new List<LanguageOption>();
         }
 
-        public override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(SystemTextSetting settings)
         {
 
             var html = new XElement("div",
@@ -81,7 +81,7 @@ namespace Bot.Core
             return html.ToString();
         }
 
-        public override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(SystemTextSetting settings)
         {
             StringBuilder sb = new StringBuilder();
             if (HeaderText != null && HeaderText.Phrases.Count > 0)
@@ -111,17 +111,27 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
+            base.Handle(userInput,settings);
+
             int index; LanguageOption option = null;
             if (int.TryParse(userInput, out index))
                 option = this.LanguageOptions.Where((ln, idx) => idx == index).FirstOrDefault();
             else
                 option = this.LanguageOptions.Where(op => op.Keywords.Contains(userInput)).FirstOrDefault();
 
-            if (option != null && option.TargetNode != null) return new InteractionResult { Next = option.TargetNode, Type = ResultType.Matched };
+            if (option != null && option.TargetNode != null)
+            {
+                option.TargetNode.LanguageCode = option.Language.LanguageCode; // update language code;
+                return new InteractionResult { Next = option.TargetNode, Type = ResultType.Matched };
+            }
             return new InteractionResult
             {
                 Type = ResultType.Invalid,
-                Message = settings.SelectionError.Content.Phrases.Where(p => p.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                Message = ConvertToMime(
+                    settings.SelectionError.Content.Phrases.
+                        Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                        .Select(p => p.Text).FirstOrDefault()
+                        )
             };
         }
     }

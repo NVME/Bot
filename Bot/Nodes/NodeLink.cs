@@ -13,19 +13,20 @@ namespace Bot.Core
         public NodeLink() : base() { }
         public int TargetNode { get; set; }
         public Node Goto { get; set; }
-       
+
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            return new InteractionResult { Next = Goto, Type=ResultType.JumpTo };
+            Goto.LanguageCode = this.LanguageCode;
+            return new InteractionResult { Next = Goto, Type = ResultType.JumpTo };
         }
 
-        public override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }
 
-        public override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(SystemTextSetting settings)
         {
             throw new NotImplementedException();
         }

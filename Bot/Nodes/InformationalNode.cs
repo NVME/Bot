@@ -16,7 +16,7 @@ namespace Bot.Core
         public bool DisableGoBackOption { get; set; }
         public InformationalNode() : base() { }
 
-        public override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(SystemTextSetting settings)
         {
 
 
@@ -102,7 +102,7 @@ namespace Bot.Core
         }
 
 
-        public override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(SystemTextSetting settings)
         {
 
             StringBuilder sb = new StringBuilder();
@@ -137,7 +137,18 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            throw new NotImplementedException();
+            base.Handle(userInput, settings);
+            if (!DisableGoBackOption && userInput.Equals(settings.PreviousMenuLevelCharacter))
+                return new InteractionResult { Next = this.Parent, Type = ResultType.GoBack };
+            return new InteractionResult
+            {
+                Type = ResultType.Invalid,
+                Message = ConvertToMime(
+                   settings.SelectionError.Content.Phrases.
+                       Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                       .Select(p => p.Text).FirstOrDefault()
+                       )
+            };
         }
     }
 }

@@ -151,7 +151,14 @@ namespace Bot.Core
                     langNode.IsLanguageNode = true;
                     //update target node
                     foreach (var option in langNode.LanguageOptions)
-                        option.TargetNode = nodes.Where(n => n.Id == option.TargetNodeId).FirstOrDefault();
+                    {
+                        var target = nodes.Where(n => n.Id == option.TargetNodeId).FirstOrDefault();
+                        if (target != null)
+                        {
+                            target.LanguageCode = option.Language.LanguageCode;
+                            option.TargetNode = target;
+                        }
+                    }
                     treenodes.Add(langNode);
                 }
                 if (node is HandoffNode)

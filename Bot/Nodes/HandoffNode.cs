@@ -19,7 +19,7 @@ namespace Bot.Core
         public bool DisplayConnectionText { get; set; }
         public bool DisplayHoursOfOperation { get; set; }
 
-        public override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(SystemTextSetting settings)
         {
 
             var html = new XElement("div",
@@ -87,7 +87,7 @@ namespace Bot.Core
                                              ),
                                  new XElement("br")
                               ),
-                  // display go back option.
+                   // display go back option.
                    new XElement("div",
                                   new XElement("span", new XText(settings.PreviousMenuLevelCharacter + ".")),
                                   new XElement("span", new XAttribute("style", TextFormat.GoBackTextFormat),
@@ -118,7 +118,7 @@ namespace Bot.Core
             return sbHoursOfOperation.ToString();
         }
 
-        public override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(SystemTextSetting settings)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -152,7 +152,20 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            throw new NotImplementedException();
+            base.Handle(userInput, settings);
+            if (userInput.Trim().Equals("1"))
+                return new InteractionResult { Next = this, Type = ResultType.HandOff };
+            if (userInput.Equals(settings.PreviousMenuLevelCharacter))
+                return new InteractionResult { Next = this.Parent, Type = ResultType.GoBack };
+            return new InteractionResult
+            {
+                Type = ResultType.Invalid,
+                Message = ConvertToMime(
+                   settings.SelectionError.Content.Phrases.
+                       Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                       .Select(p => p.Text).FirstOrDefault()
+                       )
+            };
         }
 
 

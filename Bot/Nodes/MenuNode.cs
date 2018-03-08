@@ -24,7 +24,7 @@ namespace Bot.Core
         public bool HideMenuNumbers { get; set; }
 
 
-        public override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(SystemTextSetting settings)
         {
             var html = new XElement("div",
                      !TextFormat.DisplayChosenText ?//if display chosen text is false, display < foo />
@@ -122,7 +122,7 @@ namespace Bot.Core
             return html.ToString();
         }
 
-        public override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(SystemTextSetting settings)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -164,9 +164,11 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
+            base.Handle(userInput, settings);
+
             int index; Node next = null;
             if (!DisableGoBackOption && userInput.Equals(settings.PreviousMenuLevelCharacter))
-                 return new InteractionResult { Next = this.Parent, Type = ResultType.GoBack };
+                return new InteractionResult { Next = this.Parent, Type = ResultType.GoBack };
             else if (int.TryParse(userInput, out index))
                 next = this.Nodes.Where((n, i) => i == index).FirstOrDefault();
             else
@@ -179,12 +181,20 @@ namespace Bot.Core
                                                       ).Count() > 0
                                       ).FirstOrDefault();
 
-            if (next != null)  return new InteractionResult { Next = next, Type = ResultType.Matched };
+            if (next != null)
+            {
+                next.LanguageCode = this.LanguageCode; // follow the same language code
+                return new InteractionResult { Next = next, Type = ResultType.Matched };
+            }
             return
                 new InteractionResult
                 {
                     Type = ResultType.Invalid,
-                    Message = settings.SelectionError.Content.Phrases.Where(p => p.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                    Message = ConvertToMime(
+                    settings.SelectionError.Content.Phrases.
+                        Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                        .Select(p => p.Text).FirstOrDefault()
+                        )
                 };
         }
     }
