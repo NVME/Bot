@@ -29,18 +29,20 @@ namespace Bot.Core
             LanguageCode = "en-us";// default language, will be reset in language node and pass to next node;
             Keywords = new List<GlobalPhrase>();
             IsRootNode = false;
-            IsLanguageNode = false;           
+            IsLanguageNode = false;
         }
         public virtual string GetOptionDisplayText(string languageCode)
         {
             return OptionDisplayText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault();
         }
-        public MimePartContentDescription Display(SystemTextSetting settings)
+        public virtual DisplayResult Display(SystemTextSetting settings)
         {
+            var plainText = GetPlainText(settings);
+            var html = GetHtmlText(settings);
             var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
-            package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(GetPlainText(settings))));
-            package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(GetHtmlText(settings))));
-            return package;
+            package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(plainText)));
+            package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(html)));
+            return new DisplayResult { Message = package, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
         }
         protected abstract string GetHtmlText(SystemTextSetting settings);
         protected abstract string GetPlainText(SystemTextSetting settings);
@@ -49,11 +51,11 @@ namespace Bot.Core
             //TBD: Check by pass agent
             throw new NotImplementedException();
         }
-       
+
         protected MimePartContentDescription ConvertToMime(string msg)
         {
             var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
-            var htm = string.Format("<span style=\"{1} \"><span>{0}</span></span>", msg,this.TextFormat.ErrorTextFormat);
+            var htm = string.Format("<span style=\"{1} \"><span>{0}</span></span>", msg, this.TextFormat.ErrorTextFormat);
             package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(msg)));
             package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(htm)));
             return package;
@@ -74,7 +76,7 @@ namespace Bot.Core
             StringBuilder sbHTML = new StringBuilder(HTMLCode);
             // Note: There are many more special characters, these are just
             // most common. You can add new characters in this arrays if needed
-            string[] OldWords = {"&nbsp;", "&amp;", "&quot;", "&lt;","&gt;", "&reg;", "&copy;", "&bull;", "&trade;"};
+            string[] OldWords = { "&nbsp;", "&amp;", "&quot;", "&lt;", "&gt;", "&reg;", "&copy;", "&bull;", "&trade;" };
             string[] NewWords = { " ", "&", "\"", "<", ">", "Â®", "Â©", "â€¢", "â„¢" };
             for (int i = 0; i < OldWords.Length; i++)
             {
@@ -92,18 +94,38 @@ namespace Bot.Core
         }
     }
 
-    public class InteractionResult
+
+    public class MimeResult
+    {
+        public MimePartContentDescription Message { get; set; }
+        public string Html { get; set; }// for testing
+        public string PlainText { get; set; }// for testing
+    }
+
+    public class InteractionResult : MimeResult
     {
         public Node Next { get; set; }
-        public MimePartContentDescription Message { get; set; }
-        public ResultType Type { get; set; }
+        public InteractionResultType Type { get; set; }
     }
-    public enum ResultType
+
+    public class DisplayResult : MimeResult
+    {
+        public DisplayResultType Type { get; set; }
+    }
+    public enum InteractionResultType
     {
         Matched,
         Invalid,
         GoBack,
         JumpTo,
         HandOff
+    }
+
+    public enum DisplayResultType
+    {
+        NodeLinkNoDisplay,
+        HandOffNoConfirmation,
+        Display
+
     }
 }

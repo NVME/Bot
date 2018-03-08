@@ -7,7 +7,7 @@ namespace Bot.Core
     {
         /// <summary> Gets node's UI/Display. </summary>
         /// <returns></returns>
-        MimePartContentDescription Display( SystemTextSetting settings);
+        DisplayResult Display( SystemTextSetting settings);
         /// <summary>
         /// 
         /// Hand user input, return next node, if no next node , retrun it self and message.

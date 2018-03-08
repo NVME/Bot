@@ -122,15 +122,15 @@ namespace Bot.Core
             if (option != null && option.TargetNode != null)
             {
                 option.TargetNode.LanguageCode = option.Language.LanguageCode; // update language code;
-                return new InteractionResult { Next = option.TargetNode, Type = ResultType.Matched };
+                return new InteractionResult { Next = option.TargetNode, Type = InteractionResultType.Matched };
             }
             return new InteractionResult
             {
-                Type = ResultType.Invalid,
+                Type = InteractionResultType.Invalid,
                 Message = ConvertToMime(
-                    settings.SelectionError.Content.Phrases.
-                        Where(p => p.LanguageCode.Equals(this.LanguageCode))
-                        .Select(p => p.Text).FirstOrDefault()
+                    settings.SelectionError.Content.Phrases
+                       .Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                       .Select(p => p.Text).FirstOrDefault()
                         )
             };
         }

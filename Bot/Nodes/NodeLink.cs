@@ -14,13 +14,15 @@ namespace Bot.Core
         public int TargetNode { get; set; }
         public Node Goto { get; set; }
 
-
+        public override DisplayResult Display(SystemTextSetting settings)
+        {
+            return new DisplayResult { Message = null, Type = DisplayResultType.NodeLinkNoDisplay };
+        }
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            Goto.LanguageCode = this.LanguageCode;
-            return new InteractionResult { Next = Goto, Type = ResultType.JumpTo };
+            if (!Goto.IsLanguageNode) Goto.LanguageCode = this.LanguageCode;
+            return new InteractionResult { Next = Goto, Type = InteractionResultType.JumpTo };
         }
-
         protected override string GetHtmlText(SystemTextSetting settings)
         {
             throw new NotImplementedException();

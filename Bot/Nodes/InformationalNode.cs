@@ -11,7 +11,7 @@ namespace Bot.Core
     {
         public GlobalPhrase HeaderText { get; set; }
         public GlobalPhrase DisclaimerText { get; set; }// can be override by GlobalDisclaimer, TBD: Deceide how /when to override , on configure manager side or bot .
-        public GlobalPhrase InformationalText { get; set;}
+        public GlobalPhrase InformationalText { get; set; }
         public GlobalPhrase FooterText { get; set; }
         public bool DisableGoBackOption { get; set; }
         public InformationalNode() : base() { }
@@ -21,7 +21,7 @@ namespace Bot.Core
 
 
             var html = new XElement("div",
-                 
+
                      HeaderText == null || HeaderText.Phrases.Count == 0 ?  // Header section
                     new XElement("foo") :// if header is empty, display <foo/>
                     new XElement("div",
@@ -124,7 +124,7 @@ namespace Bot.Core
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                   )
                     ).AppendLine();
-            if(InformationalText!=null && InformationalText.Phrases.Count > 0)
+            if (InformationalText != null && InformationalText.Phrases.Count > 0)
                 sb.AppendLine(InformationalText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine();
             if (!DisableGoBackOption)
                 sb.AppendLine(settings.PreviousMenuLevelCharacter + "." + settings.GoBackText.Content.Phrases
@@ -139,13 +139,13 @@ namespace Bot.Core
         {
             base.Handle(userInput, settings);
             if (!DisableGoBackOption && userInput.Equals(settings.PreviousMenuLevelCharacter))
-                return new InteractionResult { Next = this.Parent, Type = ResultType.GoBack };
+                return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
             return new InteractionResult
             {
-                Type = ResultType.Invalid,
+                Type = InteractionResultType.Invalid,
                 Message = ConvertToMime(
-                   settings.SelectionError.Content.Phrases.
-                       Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                   settings.SelectionError.Content.Phrases
+                       .Where(p => p.LanguageCode.Equals(this.LanguageCode))
                        .Select(p => p.Text).FirstOrDefault()
                        )
             };

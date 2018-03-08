@@ -19,9 +19,15 @@ namespace Bot.Core
         public bool DisplayConnectionText { get; set; }
         public bool DisplayHoursOfOperation { get; set; }
 
+
+        public override DisplayResult Display(SystemTextSetting settings)
+        {
+            if (ShowConfirmation) base.Display(settings);
+            return new DisplayResult { Message = null, Type = DisplayResultType.HandOffNoConfirmation };
+        }
+
         protected override string GetHtmlText(SystemTextSetting settings)
         {
-
             var html = new XElement("div",
 
                 HeaderText == null || HeaderText.Phrases.Count == 0 ?  // Header section
@@ -154,17 +160,18 @@ namespace Bot.Core
         {
             base.Handle(userInput, settings);
             if (userInput.Trim().Equals("1"))
-                return new InteractionResult { Next = this, Type = ResultType.HandOff };
+                return new InteractionResult { Next = this, Type = InteractionResultType.HandOff };
             if (userInput.Equals(settings.PreviousMenuLevelCharacter))
-                return new InteractionResult { Next = this.Parent, Type = ResultType.GoBack };
+                return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
+            
             return new InteractionResult
             {
-                Type = ResultType.Invalid,
+                Type = InteractionResultType.Invalid,
                 Message = ConvertToMime(
-                   settings.SelectionError.Content.Phrases.
-                       Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                    settings.SelectionError.Content.Phrases
+                       .Where(p => p.LanguageCode.Equals(this.LanguageCode))
                        .Select(p => p.Text).FirstOrDefault()
-                       )
+                        )
             };
         }
 
