@@ -75,5 +75,17 @@ namespace Bot.Test
             var display = info.Display(NodeList.getSystemSetting());
            
         }
+
+        [TestMethod]
+        public void HandoffNode()
+        {
+            var tree = NodeList.GetList().ToNode();
+            var handoff = tree.Where<Node>(n => n.Id == 11112).FirstOrDefault();
+            var display = handoff.Display(NodeList.getSystemSetting());
+            var result = handoff.Handle("", NodeList.getSystemSetting());
+
+        }
+
+        
     }
 }

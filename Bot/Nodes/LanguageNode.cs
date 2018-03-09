@@ -111,8 +111,8 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            base.Handle(userInput,settings);
-
+            var result = base.Handle(userInput, settings);
+            if (result.Type != InteractionResultType.Invalid) return result;
             int index; LanguageOption option = null;
             if (int.TryParse(userInput, out index))
                 option = this.LanguageOptions.Where((ln, idx) => idx == index).FirstOrDefault();
@@ -124,15 +124,7 @@ namespace Bot.Core
                 option.TargetNode.LanguageCode = option.Language.LanguageCode; // update language code;
                 return new InteractionResult { Next = option.TargetNode, Type = InteractionResultType.Matched };
             }
-            return new InteractionResult
-            {
-                Type = InteractionResultType.Invalid,
-                Message = ConvertToMime(
-                    settings.SelectionError.Content.Phrases
-                       .Where(p => p.LanguageCode.Equals(this.LanguageCode))
-                       .Select(p => p.Text).FirstOrDefault()
-                        )
-            };
+            return result; //return invalid selection
         }
     }
 

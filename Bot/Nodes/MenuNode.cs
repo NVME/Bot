@@ -164,8 +164,8 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            base.Handle(userInput, settings);
-
+            var result = base.Handle(userInput, settings);
+            if (result.Type != InteractionResultType.Invalid) return result;
             int index; Node next = null;
             if (!DisableGoBackOption && userInput.Equals(settings.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
@@ -186,16 +186,8 @@ namespace Bot.Core
                 next.LanguageCode = this.LanguageCode; // follow the same language code
                 return new InteractionResult { Next = next, Type = InteractionResultType.Matched };
             }
-            return
-                new InteractionResult
-                {
-                    Type = InteractionResultType.Invalid,
-                    Message = ConvertToMime(
-                    settings.SelectionError.Content.Phrases
-                       .Where(p => p.LanguageCode.Equals(this.LanguageCode))
-                       .Select(p => p.Text).FirstOrDefault()
-                        )
-                };
+            return result;
+                
         }
     }
 

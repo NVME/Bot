@@ -43,55 +43,35 @@ namespace Bot.Core
             package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(plainText)));
             package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(html)));
             return new DisplayResult { Message = package, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
+           // return new DisplayResult { Message = null, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
         }
         protected abstract string GetHtmlText(SystemTextSetting settings);
         protected abstract string GetPlainText(SystemTextSetting settings);
         public virtual InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
             //TBD: Check by pass agent
-            throw new NotImplementedException();
+
+            //return invalid selection by default
+            return new InteractionResult
+            {
+                Type = InteractionResultType.Invalid,
+                Message = ConvertToMime(
+                   settings.SelectionError.Content.Phrases
+                      .Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                      .Select(p => p.Text).FirstOrDefault()
+                       )
+            };
         }
 
-        protected MimePartContentDescription ConvertToMime(string msg)
+        private MimePartContentDescription ConvertToMime(string msg)
         {
+
             var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
             var htm = string.Format("<span style=\"{1} \"><span>{0}</span></span>", msg, this.TextFormat.ErrorTextFormat);
             package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(msg)));
             package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(htm)));
             return package;
-        }
-
-        // This function converts HTML code to plain text
-        // Any step is commented to explain it better
-        // You can change or remove unnecessary parts to suite your needs
-        protected string HTMLToText(string HTMLCode)
-        {
-            // Remove new lines since they are not visible in HTML
-            HTMLCode = HTMLCode.Replace("\n", " ");
-            // Remove tab spaces
-            HTMLCode = HTMLCode.Replace("\t", " ");
-            // Remove multiple white spaces from HTML
-            HTMLCode = Regex.Replace(HTMLCode, "\\s+", " ");
-            // Replace special characters like &, <, >, " etc.
-            StringBuilder sbHTML = new StringBuilder(HTMLCode);
-            // Note: There are many more special characters, these are just
-            // most common. You can add new characters in this arrays if needed
-            string[] OldWords = { "&nbsp;", "&amp;", "&quot;", "&lt;", "&gt;", "&reg;", "&copy;", "&bull;", "&trade;" };
-            string[] NewWords = { " ", "&", "\"", "<", ">", "Â®", "Â©", "â€¢", "â„¢" };
-            for (int i = 0; i < OldWords.Length; i++)
-            {
-                sbHTML.Replace(OldWords[i], NewWords[i]);
-            }
-            // Check if there are line breaks (<br>) or paragraph (<p>)           
-            sbHTML.Replace("<br>", "\n<br>");
-            sbHTML.Replace("<br ", "\n<br ");
-            sbHTML.Replace("<p ", "\n<p ");
-            // Finally, remove all HTML tags and return plain text
-            return System.Text.RegularExpressions.Regex.Replace(
-              sbHTML.ToString(), "<.*?>", string.Empty);
-            //sbHTML.ToString(), "<[^>]*>", string.Empty);
-            //.Replace(" 1","1");
-        }
+        }     
     }
 
 
@@ -118,7 +98,8 @@ namespace Bot.Core
         Invalid,
         GoBack,
         JumpTo,
-        HandOff
+        HandOff,
+        AgentByPass
     }
 
     public enum DisplayResultType
