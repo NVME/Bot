@@ -111,13 +111,19 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            var result = base.Handle(userInput, settings);
+            var input = userInput.Trim();
+            var result = base.Handle(input, settings);
             if (result.Type != InteractionResultType.Invalid) return result;
             int index; LanguageOption option = null;
-            if (int.TryParse(userInput, out index))
-                option = this.LanguageOptions.Where((ln, idx) => idx == index).FirstOrDefault();
+            if (int.TryParse(input, out index))
+                option = this.LanguageOptions.Where((ln, idx) => idx+1 == index).FirstOrDefault();
             else
-                option = this.LanguageOptions.Where(op => op.Keywords.Contains(userInput)).FirstOrDefault();
+                option = this.LanguageOptions
+                    .Where(op =>
+                    op.Keywords.Contains(input)
+                    ||
+                    op.Language.keywords.Contains(input)
+                    ).FirstOrDefault();
 
             if (option != null && option.TargetNode != null)
             {

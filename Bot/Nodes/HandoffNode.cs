@@ -158,11 +158,12 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            var result= base.Handle(userInput, settings);
+            var input = userInput.Trim();
+            var result= base.Handle(input, settings);
             if (result.Type != InteractionResultType.Invalid) return result;
-            if (userInput.Trim().Equals("1"))
+            if (input.Trim().Equals("1"))
                 return new InteractionResult { Next = this, Type = InteractionResultType.HandOff };
-            if (userInput.Equals(settings.PreviousMenuLevelCharacter))
+            if (input.Equals(settings.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
             return result;
         }

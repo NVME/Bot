@@ -164,20 +164,21 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            var result = base.Handle(userInput, settings);
+            var input = userInput.Trim();
+            var result = base.Handle(input, settings);
             if (result.Type != InteractionResultType.Invalid) return result;
             int index; Node next = null;
-            if (!DisableGoBackOption && userInput.Equals(settings.PreviousMenuLevelCharacter))
+            if (!DisableGoBackOption && input.Equals(settings.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
-            else if (int.TryParse(userInput, out index))
-                next = this.Nodes.Where((n, i) => i == index).FirstOrDefault();
+            else if (int.TryParse(input, out index))
+                next = this.Nodes.Where((n, idx) => idx+1 == index).FirstOrDefault();
             else
                 next = this.Nodes.Where(
                                  n => n.Keywords.Where(
                                                  key => key.Phrases.Where(
                                                                            p => p.LanguageCode.Equals(this.LanguageCode)
                                                                          )
-                                                                   .Select(p => p.Text).Contains(userInput)
+                                                                   .Select(p => p.Text).Contains(input)
                                                       ).Count() > 0
                                       ).FirstOrDefault();
 

@@ -18,8 +18,6 @@ namespace Bot.Core
 
         protected override string GetHtmlText(SystemTextSetting settings)
         {
-
-
             var html = new XElement("div",
 
                      HeaderText == null || HeaderText.Phrases.Count == 0 ?  // Header section
@@ -137,9 +135,10 @@ namespace Bot.Core
 
         public override InteractionResult Handle(string userInput, SystemTextSetting settings)
         {
-            var result = base.Handle(userInput, settings);
+            var input = userInput.Trim();
+            var result = base.Handle(input, settings);
             if (result.Type != InteractionResultType.Invalid) return result;
-            if (!DisableGoBackOption && userInput.Equals(settings.PreviousMenuLevelCharacter))
+            if (!DisableGoBackOption && input.Equals(settings.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
             return result;
         }

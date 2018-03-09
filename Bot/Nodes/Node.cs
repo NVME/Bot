@@ -39,11 +39,11 @@ namespace Bot.Core
         {
             var plainText = GetPlainText(settings);
             var html = GetHtmlText(settings);
-            var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
-            package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(plainText)));
-            package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(html)));
-            return new DisplayResult { Message = package, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
-           // return new DisplayResult { Message = null, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
+            //var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
+            //package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(plainText)));
+            //package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(html)));
+            //return new DisplayResult { Message = package, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
+            return new DisplayResult { Message = null, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
         }
         protected abstract string GetHtmlText(SystemTextSetting settings);
         protected abstract string GetPlainText(SystemTextSetting settings);
@@ -54,12 +54,13 @@ namespace Bot.Core
             //return invalid selection by default
             return new InteractionResult
             {
-                Type = InteractionResultType.Invalid,
-                Message = ConvertToMime(
-                   settings.SelectionError.Content.Phrases
-                      .Where(p => p.LanguageCode.Equals(this.LanguageCode))
-                      .Select(p => p.Text).FirstOrDefault()
-                       )
+                Type = InteractionResultType.Invalid
+                //,
+                //Message = ConvertToMime(
+                //   settings.SelectionError.Content.Phrases
+                //      .Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                //      .Select(p => p.Text).FirstOrDefault()
+                //       )
             };
         }
 

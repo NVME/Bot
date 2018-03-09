@@ -20,6 +20,10 @@ namespace Bot.COMM
         public string LanguageCode { get; set; }
         [DataMember]
         public List<string> keywords { get; set; }
+        public Language()
+        {
+            this.keywords = new List<string>();
+        }
     }
     [DataContract]
     public class LanguageOptionDto
@@ -32,5 +36,9 @@ namespace Bot.COMM
         public string LanguageAltText { get; set; }
         [DataMember]
         public List<string> Keywords { get; set; }
+        public LanguageOptionDto()
+        {
+            this.Keywords = new List<string>();
+        }
     }
 }

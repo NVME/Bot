@@ -436,6 +436,14 @@ namespace Bot.Test
                                  new LocalPhrase { LanguageCode="en-us", Text="SAP" },
                                  new LocalPhrase { LanguageCode="en-us", Text="sap" }
                             }
+                        },
+                         new GlobalPhrase {
+                             Id="1",
+                              Phrases=
+                            {
+                                 new LocalPhrase { LanguageCode="cantonese", Text="SAP" },
+                                 new LocalPhrase { LanguageCode="cantonese", Text="sap" }
+                            }
                         }
                      },
                 OptionText = new GlobalPhrase
@@ -716,7 +724,7 @@ namespace Bot.Test
                 UseEnglishLanguageName = false,
                 DisableGoBackOption = false,
                 DisplayHoursOfOperation = false,
-                ShowConfirmation = true,
+                ShowConfirmation = false,
                 HideMenu = false,
                 HideMenuNumbers = false,
                 AdditionalOptions = "",
