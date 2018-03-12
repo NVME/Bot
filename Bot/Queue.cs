@@ -22,7 +22,9 @@ namespace Bot.Core
         public string BackupSIP { get; set; }
     }
 
-    public class ServiceNow : Queue { }
+    public class ServiceNow : Queue
+    {
+    }
 
-    
+
 }

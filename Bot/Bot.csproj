@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotProfile.cs" />
+    <Compile Include="BotStatus.cs" />
     <Compile Include="EnhancedChat.cs" />
     <Compile Include="MapperExtension.cs" />
     <Compile Include="Nodes\HandoffNode.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Nodes\VirtualAgentNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue.cs" />
+    <Compile Include="ServiceSetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.COMM\Bot.COMM.csproj">
