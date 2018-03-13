@@ -27,23 +27,7 @@ namespace Bot.Core
         protected override string GetHtmlText(BotSettingMini settings)
         {
             var html = new XElement("div",
-                     !TextFormat.DisplayChosenText ?//if display chosen text is false, display < foo />
-                       new XElement("foo") :
-                       new XElement("div",  // display chose text ,Ex. "You have chosen Password Reset."
-                           new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
-                                     new XElement("span",
-                                       string.Format(
-                                              settings.SystemTexts.ChosenText.Content.Phrases
-                                                     .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
-                                             ,
-                                             OptionDisplayText.Phrases
-                                                     .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
-                                                     )
-                                         )
-                           ),
-                           new XElement("br"),
-                           new XElement("br")
-                      ),
+                    
                       HeaderText == null || HeaderText.Phrases.Count == 0 ?  // Header section
                      new XElement("foo") :// if header is empty, display <foo/>
                      new XElement("div",
@@ -66,6 +50,23 @@ namespace Bot.Core
                            new XElement("br"),
                            new XElement("br")
                        ),
+                       !TextFormat.DisplayChosenText ?//if display chosen text is false, display < foo />
+                       new XElement("foo") :
+                       new XElement("div",  // display chose text ,Ex. "You have chosen Password Reset."
+                           new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
+                                     new XElement("span",
+                                       string.Format(
+                                              settings.SystemTexts.ChosenText.Content.Phrases
+                                                     .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                             ,
+                                             OptionDisplayText.Phrases
+                                                     .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                                     )
+                                         )
+                           ),
+                           new XElement("br"),
+                           new XElement("br")
+                      ),
                       !TextFormat.DisplaySelectionText ?//if display selection text is false, display < foo />
                        new XElement("foo") :
                        new XElement("div",
@@ -115,6 +116,23 @@ namespace Bot.Core
                            new XElement("span",
                              FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                              )
+                          ),//If footer text has been defined, the bypass message message should be appended to that text, and separated by a line break.
+                        !settings.MenuBypass.DisplayMenuBypassMessage || settings.MenuBypass.BypassKeywords.Count == 0 ?
+                         new XElement("foo") :
+                         new XElement("hr")
+                       ),
+                      !settings.MenuBypass.DisplayMenuBypassMessage || settings.MenuBypass.BypassKeywords.Count==0?
+                        new XElement("foo"): //
+                         new XElement("div", 
+                         new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
+                           new XElement("span",  // display by pass text. SystemTextSettings.AgentBypassText is where the message is defined. It will need a placeholder for the first word in the bypasskeywords settings. Something like “To chat with an agent directly, type “{0)” at any time”.
+                             string.Format(
+                                            settings.SystemTexts.AgentBypassText.Content.Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd(),
+                                           settings.MenuBypass.BypassKeywords[0].Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                          )
+                             )
                           )
                        )
                  );
@@ -157,8 +175,17 @@ namespace Bot.Core
                 sb.AppendLine();
             }
             if (FooterText != null && FooterText.Phrases.Count > 0)
-                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
-
+                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine();
+            if (settings.MenuBypass.DisplayMenuBypassMessage && settings.MenuBypass.BypassKeywords.Count > 0)
+                sb.AppendLine(
+                       string.Format(
+                                            settings.SystemTexts.AgentBypassText.Content.Phrases
+                                                    .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                           ,
+                                            settings.MenuBypass.BypassKeywords[0].Phrases
+                                                    .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                      )
+                        );
             return sb.ToString();
         }
 
@@ -171,7 +198,7 @@ namespace Bot.Core
             if (!DisableGoBackOption && input.Equals(settings.SystemTexts.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
             else if (int.TryParse(input, out index))
-                next = this.Nodes.Where((n, idx) => idx+1 == index).FirstOrDefault();
+                next = this.Nodes.Where((n, idx) => idx + 1 == index).FirstOrDefault();
             else
                 next = this.Nodes.Where(
                                  n => n.Keywords.Where(
@@ -188,7 +215,7 @@ namespace Bot.Core
                 return new InteractionResult { Next = next, Type = InteractionResultType.Matched };
             }
             return result;
-                
+
         }
     }
 

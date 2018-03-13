@@ -39,11 +39,11 @@ namespace Bot.Core
         {
             var plainText = GetPlainText(settings);
             var html = GetHtmlText(settings);
-            //var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
-            //package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(plainText)));
-            //package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(html)));
-            //return new DisplayResult { Message = package, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
-            return new DisplayResult { Message = null, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
+            var package = new MimePartContentDescription(new ContentType("multipart/alternative"), null);
+            package.Add(new MimePartContentDescription(new ContentType("text/plain"), Encoding.UTF8.GetBytes(plainText)));
+            package.Add(new MimePartContentDescription(new ContentType("text/html"), Encoding.UTF8.GetBytes(html)));
+            return new DisplayResult { Message = package, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
+            //return new DisplayResult { Message = null, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
         }
         protected abstract string GetHtmlText(BotSettingMini settings);
         protected abstract string GetPlainText(BotSettingMini settings);
@@ -52,19 +52,21 @@ namespace Bot.Core
             //TBD: Check by pass agent
             if (settings.MenuBypass.AllowMenuBypass)
             {
-
+                var keyword = settings.MenuBypass.BypassKeywords[0].Phrases
+                                                    .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault();
+                if(!string.IsNullOrEmpty(keyword)&& keyword.Equals(userInput))
+                    return new InteractionResult { Type = InteractionResultType.AgentByPass };
             }
-
             //return invalid selection by default
             return new InteractionResult
             {
                 Type = InteractionResultType.Invalid
-                //,
-                //Message = ConvertToMime(
-                //   settings.SelectionError.Content.Phrases
-                //      .Where(p => p.LanguageCode.Equals(this.LanguageCode))
-                //      .Select(p => p.Text).FirstOrDefault()
-                //       )
+                ,
+                Message = ConvertToMime(
+                   settings.SystemTexts.SelectionError.Content.Phrases
+                      .Where(p => p.LanguageCode.Equals(this.LanguageCode))
+                      .Select(p => p.Text).FirstOrDefault()
+                       )
             };
         }
 

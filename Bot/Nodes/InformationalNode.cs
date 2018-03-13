@@ -86,15 +86,32 @@ namespace Bot.Core
                           new XElement("br")
                      ),
                     FooterText == null || FooterText.Phrases.Count == 0 ?// Footer section
-                     new XElement("foo") :  //If fotter is empty, display < foo />
-                      new XElement("div",
-                        new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
-                          new XElement("span",
-                            FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
-                            )
-                         )
-                      )
-                );
+                      new XElement("foo") :  //If fotter is empty, display < foo />
+                       new XElement("div",
+                         new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
+                           new XElement("span",
+                             FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                             )
+                          ),//If footer text has been defined, the bypass message message should be appended to that text, and separated by a line break.
+                        !settings.MenuBypass.DisplayMenuBypassMessage || settings.MenuBypass.BypassKeywords.Count == 0 ?
+                         new XElement("foo") :
+                         new XElement("hr")
+                       ),
+                      !settings.MenuBypass.DisplayMenuBypassMessage || settings.MenuBypass.BypassKeywords.Count == 0 ?
+                        new XElement("foo") : //
+                         new XElement("div",
+                         new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
+                           new XElement("span",  // display by pass text. SystemTextSettings.AgentBypassText is where the message is defined. It will need a placeholder for the first word in the bypasskeywords settings. Something like “To chat with an agent directly, type “{0)” at any time”.
+                             string.Format(
+                                            settings.SystemTexts.AgentBypassText.Content.Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd(),
+                                           settings.MenuBypass.BypassKeywords[0].Phrases
+                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                          )
+                             )
+                          )
+                       )
+                 );
             html.Descendants("foo").Remove();
             return html.ToString();
         }
@@ -102,10 +119,7 @@ namespace Bot.Core
 
         protected override string GetPlainText(BotSettingMini settings)
         {
-
             StringBuilder sb = new StringBuilder();
-
-
             if (HeaderText != null && HeaderText.Phrases.Count > 0)
                 sb.AppendLine(HeaderText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
                     .AppendLine();
@@ -128,7 +142,17 @@ namespace Bot.Core
                 sb.AppendLine(settings.SystemTexts.PreviousMenuLevelCharacter + "." + settings.SystemTexts.GoBackText.Content.Phrases
                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine(); ;
             if (FooterText != null && FooterText.Phrases.Count > 0)
-                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
+                sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine();
+            if (settings.MenuBypass.DisplayMenuBypassMessage && settings.MenuBypass.BypassKeywords.Count > 0)
+                sb.AppendLine(
+                       string.Format(
+                                            settings.SystemTexts.AgentBypassText.Content.Phrases
+                                                    .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
+                                           ,
+                                            settings.MenuBypass.BypassKeywords[0].Phrases
+                                                    .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
+                                      )
+                        );
             return sb.ToString();
         }
 
