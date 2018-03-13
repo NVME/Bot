@@ -19,17 +19,17 @@ namespace Bot.Core
 
        
 
-        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
+        public override InteractionResult Handle(string userInput, BotSettingMini settings)
         {
             throw new NotImplementedException();
         }
 
-        protected override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(BotSettingMini settings)
         {
             throw new NotImplementedException();
         }
 
-        protected override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(BotSettingMini settings)
         {
             throw new NotImplementedException();
         }

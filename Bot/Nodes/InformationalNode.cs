@@ -16,7 +16,7 @@ namespace Bot.Core
         public bool DisableGoBackOption { get; set; }
         public InformationalNode() : base() { }
 
-        protected override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(BotSettingMini settings)
         {
             var html = new XElement("div",
 
@@ -48,7 +48,7 @@ namespace Bot.Core
                           new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
                                     new XElement("span",
                                      string.Format(
-                                         settings.ChosenText.Content.Phrases
+                                         settings.SystemTexts.ChosenText.Content.Phrases
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                        ,
                                         OptionDisplayText.Phrases
@@ -74,11 +74,11 @@ namespace Bot.Core
                       DisableGoBackOption ?//if display go back text is disabled, display < foo />
                       new XElement("foo") :
                       new XElement("div",
-                           new XElement("span", new XText(settings.PreviousMenuLevelCharacter + ".")
+                           new XElement("span", new XText(settings.SystemTexts.PreviousMenuLevelCharacter + ".")
                                                          ),
                           new XElement("span", new XAttribute("style", TextFormat.GoBackTextFormat),
                                     new XElement("span",
-                                      settings.GoBackText.Content.Phrases
+                                      settings.SystemTexts.GoBackText.Content.Phrases
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                                         )
                           ),
@@ -100,7 +100,7 @@ namespace Bot.Core
         }
 
 
-        protected override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(BotSettingMini settings)
         {
 
             StringBuilder sb = new StringBuilder();
@@ -115,7 +115,7 @@ namespace Bot.Core
             if (TextFormat.DisplayChosenText)
                 sb.AppendLine(
                      string.Format(
-                                        settings.ChosenText.Content.Phrases
+                                        settings.SystemTexts.ChosenText.Content.Phrases
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                        ,
                                         OptionDisplayText.Phrases
@@ -125,7 +125,7 @@ namespace Bot.Core
             if (InformationalText != null && InformationalText.Phrases.Count > 0)
                 sb.AppendLine(InformationalText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine();
             if (!DisableGoBackOption)
-                sb.AppendLine(settings.PreviousMenuLevelCharacter + "." + settings.GoBackText.Content.Phrases
+                sb.AppendLine(settings.SystemTexts.PreviousMenuLevelCharacter + "." + settings.SystemTexts.GoBackText.Content.Phrases
                                                .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()).AppendLine(); ;
             if (FooterText != null && FooterText.Phrases.Count > 0)
                 sb.AppendLine(FooterText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
@@ -133,12 +133,12 @@ namespace Bot.Core
         }
 
 
-        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
+        public override InteractionResult Handle(string userInput, BotSettingMini settings)
         {
             var input = userInput.Trim();
             var result = base.Handle(input, settings);
             if (result.Type != InteractionResultType.Invalid) return result;
-            if (!DisableGoBackOption && input.Equals(settings.PreviousMenuLevelCharacter))
+            if (!DisableGoBackOption && input.Equals(settings.SystemTexts.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
             return result;
         }

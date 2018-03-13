@@ -21,7 +21,7 @@ namespace Bot.Core
             LanguageOptions = new List<LanguageOption>();
         }
 
-        protected override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(BotSettingMini settings)
         {
 
             var html = new XElement("div",
@@ -81,7 +81,7 @@ namespace Bot.Core
             return html.ToString();
         }
 
-        protected override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(BotSettingMini settings)
         {
             StringBuilder sb = new StringBuilder();
             if (HeaderText != null && HeaderText.Phrases.Count > 0)
@@ -109,7 +109,7 @@ namespace Bot.Core
             return sb.ToString();
         }
 
-        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
+        public override InteractionResult Handle(string userInput, BotSettingMini settings)
         {
             var input = userInput.Trim();
             var result = base.Handle(input, settings);

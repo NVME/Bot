@@ -14,21 +14,21 @@ namespace Bot.Core
         public int TargetNode { get; set; }
         public Node Goto { get; set; }
 
-        public override DisplayResult Display(SystemTextSetting settings)
+        public override DisplayResult Display(BotSettingMini settings)
         {
             return new DisplayResult { Message = null, Type = DisplayResultType.NodeLinkNoDisplay };
         }
-        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
+        public override InteractionResult Handle(string userInput, BotSettingMini settings)
         {
             if (!Goto.IsLanguageNode) Goto.LanguageCode = this.LanguageCode;
             return new InteractionResult { Next = Goto, Type = InteractionResultType.JumpTo };
         }
-        protected override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(BotSettingMini settings)
         {
             throw new NotImplementedException();
         }
 
-        protected override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(BotSettingMini settings)
         {
             throw new NotImplementedException();
         }

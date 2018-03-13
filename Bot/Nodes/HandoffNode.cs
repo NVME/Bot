@@ -20,13 +20,13 @@ namespace Bot.Core
         public bool DisplayHoursOfOperation { get; set; }
 
 
-        public override DisplayResult Display(SystemTextSetting settings)
+        public override DisplayResult Display(BotSettingMini settings)
         {
             if (ShowConfirmation) return  base.Display(settings);
             return new DisplayResult { Message = null, Type = DisplayResultType.HandOffNoConfirmation };
         }
 
-        protected override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(BotSettingMini settings)
         {
             var html = new XElement("div",
 
@@ -58,7 +58,7 @@ namespace Bot.Core
                           new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
                                     new XElement("span",
                                      string.Format(
-                                         settings.ChosenText.Content.Phrases
+                                         settings.SystemTexts.ChosenText.Content.Phrases
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                        ,
                                         OptionDisplayText.Phrases
@@ -74,7 +74,7 @@ namespace Bot.Core
                        new XElement("div",
                            new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
                                      new XElement("span",
-                                       settings.SelectionText.Content.Phrases
+                                       settings.SystemTexts.SelectionText.Content.Phrases
                                                  .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                                          )
                            ),
@@ -87,7 +87,7 @@ namespace Bot.Core
                   new XElement("div",
                                  new XElement("span", new XAttribute("style", TextFormat.MenuNumberTextFormat), new XText("1.")),
                                  new XElement("span", new XAttribute("style", TextFormat.MenuOptionTextFormat),
-                                       new XElement("span", settings.HandoffConfirmationText.Content.Phrases
+                                       new XElement("span", settings.SystemTexts.HandoffConfirmationText.Content.Phrases
                                                           .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                                                     )
                                              ),
@@ -95,10 +95,10 @@ namespace Bot.Core
                               ),
                    // display go back option.
                    new XElement("div",
-                                  new XElement("span", new XText(settings.PreviousMenuLevelCharacter + ".")),
+                                  new XElement("span", new XText(settings.SystemTexts.PreviousMenuLevelCharacter + ".")),
                                   new XElement("span", new XAttribute("style", TextFormat.GoBackTextFormat),
                                         new XElement("span",
-                                                   settings.GoBackText.Content.Phrases
+                                                   settings.SystemTexts.GoBackText.Content.Phrases
                                                              .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                                                      )
                                             ),
@@ -124,7 +124,7 @@ namespace Bot.Core
             return sbHoursOfOperation.ToString();
         }
 
-        protected override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(BotSettingMini settings)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -137,7 +137,7 @@ namespace Bot.Core
             if (TextFormat.DisplayChosenText)
                 sb.AppendLine(
                      string.Format(
-                                        settings.ChosenText.Content.Phrases
+                                        settings.SystemTexts.ChosenText.Content.Phrases
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                        ,
                                         OptionDisplayText.Phrases
@@ -145,25 +145,25 @@ namespace Bot.Core
                                   )
                     ).AppendLine();
             if (TextFormat.DisplaySelectionText)
-                sb.AppendLine(settings.SelectionText.Content.Phrases
+                sb.AppendLine(settings.SystemTexts.SelectionText.Content.Phrases
                                                  .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
                      .AppendLine();
             if (DisplayConnectionText)
-                sb.AppendLine("1." + settings.HandoffConfirmationText.Content.Phrases
+                sb.AppendLine("1." + settings.SystemTexts.HandoffConfirmationText.Content.Phrases
                                             .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
-            sb.AppendLine(settings.PreviousMenuLevelCharacter + "." + settings.GoBackText.Content.Phrases
+            sb.AppendLine(settings.SystemTexts.PreviousMenuLevelCharacter + "." + settings.SystemTexts.GoBackText.Content.Phrases
                                            .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
             return sb.ToString();
         }
 
-        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
+        public override InteractionResult Handle(string userInput, BotSettingMini settings)
         {
             var input = userInput.Trim();
             var result= base.Handle(input, settings);
             if (result.Type != InteractionResultType.Invalid) return result;
             if (input.Trim().Equals("1"))
                 return new InteractionResult { Next = this, Type = InteractionResultType.HandOff };
-            if (input.Equals(settings.PreviousMenuLevelCharacter))
+            if (input.Equals(settings.SystemTexts.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
             return result;
         }

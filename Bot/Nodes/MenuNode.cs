@@ -24,7 +24,7 @@ namespace Bot.Core
         public bool HideMenuNumbers { get; set; }
 
 
-        protected override string GetHtmlText(SystemTextSetting settings)
+        protected override string GetHtmlText(BotSettingMini settings)
         {
             var html = new XElement("div",
                      !TextFormat.DisplayChosenText ?//if display chosen text is false, display < foo />
@@ -33,7 +33,7 @@ namespace Bot.Core
                            new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
                                      new XElement("span",
                                        string.Format(
-                                              settings.ChosenText.Content.Phrases
+                                              settings.SystemTexts.ChosenText.Content.Phrases
                                                      .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                              ,
                                              OptionDisplayText.Phrases
@@ -71,7 +71,7 @@ namespace Bot.Core
                        new XElement("div",
                            new XElement("span", new XAttribute("style", TextFormat.BodyTextFormat),
                                      new XElement("span",
-                                       settings.SelectionText.Content.Phrases
+                                       settings.SystemTexts.SelectionText.Content.Phrases
                                                  .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                                          )
                            ),
@@ -96,11 +96,11 @@ namespace Bot.Core
                                  new XElement("foo") :
                                  new XElement("div",
                                        new XElement("span",
-                                                         new XText(settings.PreviousMenuLevelCharacter + ".")
+                                                         new XText(settings.SystemTexts.PreviousMenuLevelCharacter + ".")
                                                          ),
                                        new XElement("span", new XAttribute("style", TextFormat.GoBackTextFormat),
                                                  new XElement("span",
-                                                   settings.GoBackText.Content.Phrases
+                                                   settings.SystemTexts.GoBackText.Content.Phrases
                                                              .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault()
                                                      )
                                             ),
@@ -122,7 +122,7 @@ namespace Bot.Core
             return html.ToString();
         }
 
-        protected override string GetPlainText(SystemTextSetting settings)
+        protected override string GetPlainText(BotSettingMini settings)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -136,7 +136,7 @@ namespace Bot.Core
             if (TextFormat.DisplayChosenText)
                 sb.AppendLine(
                    string.Format(
-                                        settings.ChosenText.Content.Phrases
+                                        settings.SystemTexts.ChosenText.Content.Phrases
                                                 .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault().TrimEnd()
                                        ,
                                         OptionDisplayText.Phrases
@@ -144,7 +144,7 @@ namespace Bot.Core
                                   )
                     ).AppendLine();
             if (TextFormat.DisplaySelectionText)
-                sb.AppendLine(settings.SelectionText.Content.Phrases
+                sb.AppendLine(settings.SystemTexts.SelectionText.Content.Phrases
                                                  .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault())
                      .AppendLine();
             if (!HideMenu && Nodes != null)
@@ -152,7 +152,7 @@ namespace Bot.Core
                 foreach (var o in Nodes.Select((node, index) => new { node, index }))
                     sb.AppendLine((o.index + 1).ToString() + "." + o.node.GetOptionDisplayText(this.LanguageCode));
                 if (!DisableGoBackOption)
-                    sb.AppendLine(settings.PreviousMenuLevelCharacter + "." + settings.GoBackText.Content.Phrases
+                    sb.AppendLine(settings.SystemTexts.PreviousMenuLevelCharacter + "." + settings.SystemTexts.GoBackText.Content.Phrases
                                                        .Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault());
                 sb.AppendLine();
             }
@@ -162,13 +162,13 @@ namespace Bot.Core
             return sb.ToString();
         }
 
-        public override InteractionResult Handle(string userInput, SystemTextSetting settings)
+        public override InteractionResult Handle(string userInput, BotSettingMini settings)
         {
             var input = userInput.Trim();
             var result = base.Handle(input, settings);
             if (result.Type != InteractionResultType.Invalid) return result;
             int index; Node next = null;
-            if (!DisableGoBackOption && input.Equals(settings.PreviousMenuLevelCharacter))
+            if (!DisableGoBackOption && input.Equals(settings.SystemTexts.PreviousMenuLevelCharacter))
                 return new InteractionResult { Next = this.Parent, Type = InteractionResultType.GoBack };
             else if (int.TryParse(input, out index))
                 next = this.Nodes.Where((n, idx) => idx+1 == index).FirstOrDefault();

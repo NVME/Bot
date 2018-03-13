@@ -35,7 +35,7 @@ namespace Bot.Core
         {
             return OptionDisplayText.Phrases.Where(l => l.LanguageCode.Equals(this.LanguageCode)).Select(p => p.Text).FirstOrDefault();
         }
-        public virtual DisplayResult Display(SystemTextSetting settings)
+        public virtual DisplayResult Display(BotSettingMini settings)
         {
             var plainText = GetPlainText(settings);
             var html = GetHtmlText(settings);
@@ -45,11 +45,15 @@ namespace Bot.Core
             //return new DisplayResult { Message = package, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
             return new DisplayResult { Message = null, Type = DisplayResultType.Display, Html = html, PlainText = plainText };
         }
-        protected abstract string GetHtmlText(SystemTextSetting settings);
-        protected abstract string GetPlainText(SystemTextSetting settings);
-        public virtual InteractionResult Handle(string userInput, SystemTextSetting settings)
+        protected abstract string GetHtmlText(BotSettingMini settings);
+        protected abstract string GetPlainText(BotSettingMini settings);
+        public virtual InteractionResult Handle(string userInput, BotSettingMini settings)
         {
             //TBD: Check by pass agent
+            if (settings.MenuBypass.AllowMenuBypass)
+            {
+
+            }
 
             //return invalid selection by default
             return new InteractionResult

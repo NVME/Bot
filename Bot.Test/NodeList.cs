@@ -105,7 +105,7 @@ namespace Bot.Test
 
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,               
+                LanguageOptions = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -202,7 +202,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,              
+                LanguageOptions = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -287,7 +287,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,               
+                LanguageOptions = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -370,7 +370,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,               
+                LanguageOptions = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -459,7 +459,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,               
+                LanguageOptions = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -540,7 +540,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,              
+                LanguageOptions = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -621,7 +621,7 @@ namespace Bot.Test
                 },
                 DisclaimerText = null,
                 FooterText = null,
-                LanguageOptions = null,               
+                LanguageOptions = null,
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -687,7 +687,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="상담원과 채팅"}
                     }
                 },
-                LanguageOptions = null,              
+                LanguageOptions = null,
                 Queue = new QueueDto
                 {
                     Id = 101,
@@ -784,7 +784,7 @@ namespace Bot.Test
                            new LocalPhrase {LanguageCode="korean", Text="상담원과 채팅"}
                     }
                 },
-                LanguageOptions = null,             
+                LanguageOptions = null,
                 Queue = new QueueDto
                 {
                     Id = 102,
@@ -892,7 +892,7 @@ namespace Bot.Test
 
 
                 Keywords = new List<GlobalPhrase>(),
-                OptionText = new GlobalPhrase(),              
+                OptionText = new GlobalPhrase(),
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = false,
@@ -994,7 +994,7 @@ namespace Bot.Test
                      new LanguageOptionDto {Language=mandarin,TargetNodeId=11001 },
                      new LanguageOptionDto {Language=japanese,TargetNodeId=11001 },
                      new LanguageOptionDto {Language=korean, TargetNodeId=11001 }
-                    },              
+                    },
                 Queue = null,
                 QueueName = null,
                 UseEnglishLanguageName = true,
@@ -1010,13 +1010,17 @@ namespace Bot.Test
         }
 
 
-        public static SystemTextSetting getSystemSetting()
+        public static BotSettingMini getSystemSetting()
         {
-            return new SystemTextSetting
-            {
-                ChosenText = new TextSetting
+            return
+
+                new BotSettingMini
                 {
-                    Content =
+                    SystemTexts = new SystemTextSetting
+                    {
+                        ChosenText = new TextSetting
+                        {
+                            Content =
                      new GlobalPhrase
                      {
                          Id = "",
@@ -1029,11 +1033,11 @@ namespace Bot.Test
                                new LocalPhrase {LanguageCode="korean", Text="너는 선택했다{0}."}
                         }
                      },
-                    DisplayName = "Chosen Text"
-                },
-                GoBackText = new TextSetting
-                {
-                    Content =
+                            DisplayName = "Chosen Text"
+                        },
+                        GoBackText = new TextSetting
+                        {
+                            Content =
                      new GlobalPhrase
                      {
                          Id = "",
@@ -1046,11 +1050,11 @@ namespace Bot.Test
                                new LocalPhrase {LanguageCode="korean", Text="이전 메뉴로 돌아 가기"}
                         }
                      },
-                    DisplayName = "GoBack Text"
-                },
-                LanguageSelectionText = new TextSetting
-                {
-                    Content =
+                            DisplayName = "GoBack Text"
+                        },
+                        LanguageSelectionText = new TextSetting
+                        {
+                            Content =
                      new GlobalPhrase
                      {
                          Id = "",
@@ -1063,11 +1067,11 @@ namespace Bot.Test
                                new LocalPhrase {LanguageCode="korean", Text="언어를 선택하십시오."}
                         }
                      },
-                    DisplayName = "Language Selection Text"
-                },
-                SelectionText = new TextSetting
-                {
-                    Content =
+                            DisplayName = "Language Selection Text"
+                        },
+                        SelectionText = new TextSetting
+                        {
+                            Content =
                      new GlobalPhrase
                      {
                          Id = "",
@@ -1080,11 +1084,27 @@ namespace Bot.Test
                                new LocalPhrase {LanguageCode="korean", Text="옵션을 선택하십시오."}
                         }
                      },
-                    DisplayName = " Selection Text"
-                },
-                PreviousMenuLevelCharacter = "#"
+                            DisplayName = " Selection Text"
+                        },
+                        PreviousMenuLevelCharacter = "#"
 
-            };
+                    },
+                    MenuBypass = new MenuBypassSetting
+                    {
+                        AllowMenuBypass = true,
+                        BypassKeywords = new List<GlobalPhrase>{
+                            new GlobalPhrase
+                            {
+                                Id = "1",
+                                Phrases =
+                            {
+                                 new LocalPhrase { LanguageCode="en-us", Text="Agent" }
+                            }
+                            }
+                        },
+
+                    }
+                };
         }
 
         public static string ToJson()
